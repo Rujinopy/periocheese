@@ -14,7 +14,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
 
     return (
         <div className='text-xs divide-y-2 divide-black'>
-            <h3 className='py-1 text-center '>{toothNumber}</h3>
+            <h3 className='py-1 text-center '>{toothNumber.slice(0, -1)}</h3>
             <div className='divide-y-2 divide-black'>
                 <div className="flex">
                     {[0].map(index => (
@@ -55,6 +55,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                             />
 
                         ) : <input
+                            key={index}
                             type="button"
                             className={`w-full text-center`}
                             disabled

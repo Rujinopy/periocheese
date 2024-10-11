@@ -55,12 +55,15 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 }
         };
 
+
+
         const calculateInterPoints = (mode: Mode) => {
-
+                const sideoftooth = toothNumber.slice(2,)
                 //use GM from mesial of tooth number and use distal from another
-                const nextPocketDepth = watch(`${String(parseInt(toothNumber) - 1)}.depth`) || [0, 0, 0]; // Watch pocket depth values
-                const nextGingivalMargin = watch(`${String(parseInt(toothNumber) - 1)}.margin`) || [0, 0, 0]; // Watch gingival margin values
-
+                const nextToothNumber = String(extractNumericPart(toothNumber) - 1)+ sideoftooth; // Decrement the numeric part
+                const nextPocketDepth = watch(`${nextToothNumber}.depth`) || [0, 0, 0]; // Watch pocket depth values
+                const nextGingivalMargin = watch(`${nextToothNumber}.margin`) || [0, 0, 0]; // Watch gingival margin values
+                
                 if (mode === "GM") {
                         return xinterCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
@@ -140,7 +143,13 @@ export default Periovectors;
 function arraysEqual(a: number[], b: number[]): boolean {
         if (a.length !== b.length) return false;
         for (let i = 0; i < a.length; i++) {
-            if (a[i] !== b[i]) return false;
+                if (a[i] !== b[i]) return false;
         }
         return true;
-    }
+}
+
+
+const extractNumericPart = (toothNumber: string): number => {
+        const match = toothNumber.match(/\d+/);  // Extract numeric part of the string
+        return match ? parseInt(match[0]) : 0;   // If found, convert to number, otherwise return 0
+};

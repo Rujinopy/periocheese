@@ -20,15 +20,38 @@ const ChartComponent: React.FC = () => {
     const { setValue } = methods;
 
     useEffect(() => {
-        // Example JSON response from the API as a string
-        const jsonResponse = '{"toothNumber": "27", "depth": [3, 5, 6]}';
-
-        // Parse the JSON string to an object
-        const data = JSON.parse(jsonResponse);
-
-        // Update the form values using setValue
-        setValue(`${data.toothNumber}.depth`, data.depth);
-    }, [setValue]);
+        if (transcription) {
+            try {
+                console.log(transcription);
+                const dataArray = JSON.parse(transcription);
+    
+                // Check if the parsed data is an array
+                if (Array.isArray(dataArray)) {
+                    dataArray.forEach((data) => {
+                        // Conditionally set depth if it exists
+                        if (data.depth) {
+                            setValue(`${data.toothNumber}.depth`, data.depth);
+                        }
+    
+                        // Conditionally set margin if it exists
+                        if (data.margin) {
+                            setValue(`${data.toothNumber}.margin`, data.margin);
+                        }
+    
+                        // Conditionally set plaque if it exists
+                        if (data.plaque) {
+                            setValue(`${data.toothNumber}.plaque`, data.plaque);
+                        }
+                    });
+                } else {
+                    console.error("Expected an array but received something else");
+                }
+            } catch (error) {
+                console.error("Error parsing transcription or setting values:", error);
+            }
+        }
+    }, [setValue, transcription]);
+    
 
     const onSubmit = (data: any) => {
         console.log('Submitted Data:', data);
@@ -51,10 +74,10 @@ const ChartComponent: React.FC = () => {
                     {/* <h2 className={`${kodchasan.className} bg-yellow-300 font-extrabold text-center py-8 text-4xl z-40`}>ไอ้ต้าวเปอริโอชาร์ท</h2> */}
                     <div className="relative w-full mx-auto ">
                         <svg className='absolute z-10 left-0 top-0 w-[1200px] h-[1600px]'>
-                            {['18', '17', '16', '15', '14', '13', '12', '11'].map(tooth => (
+                            {['18b', '17b', '16b', '15b', '14b', '13b', '12b', '11b'].map(tooth => (
                                 <Periovectors key={tooth} toothNumber={tooth} quadrant={Quadrants.Q1B}/>
                             ))}
-                            {['28', '27', '26', '25', '24', '23', '22', '21'].map(tooth => (
+                            {['28b', '27b', '26b', '25b', '24b', '23b', '22b', '21b'].map(tooth => (
                                 <Periovectors key={tooth} toothNumber={tooth} quadrant={Quadrants.Q2B}/>
                             ))}
                         </svg>
@@ -83,12 +106,12 @@ const ChartComponent: React.FC = () => {
                             {/* Top Teeth */}
                             <div className='flex space-x-6 bg-white'>
                                 <div className='flex divide-x-2 divide-black border-2 border-black'>
-                                    {['18', '17', '16', '15', '14', '13', '12', '11'].map(tooth => (
+                                    {['18b', '17b', '16b', '15b', '14b', '13b', '12b', '11b'].map(tooth => (
                                         <ToothComponent key={tooth} toothNumber={tooth} quadrant='Q1B'/>
                                     ))}
                                 </div>
                                 <div className='flex divide-x-2 divide-black border-2 border-black'>
-                                    {['21', '22', '23', '24', '25', '26', '27', '28'].map(tooth => (
+                                    {['21b', '22b', '23b', '24b', '25b', '26b', '27b', '28b'].map(tooth => (
                                         <ToothComponent key={tooth} toothNumber={tooth} quadrant='Q2B'/>
                                     ))}
                                 </div>

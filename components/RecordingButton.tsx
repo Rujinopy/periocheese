@@ -2,6 +2,14 @@
 
 import { useState, useRef } from "react";
 import { Mic } from "lucide-react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 interface RecordingButtonProps {
   setAudioURL: (url: string | null) => void;
@@ -13,6 +21,7 @@ interface RecordingButtonProps {
 export default function RecordingButton({ setAudioURL, setTranscription, setLoading, loading }: RecordingButtonProps) {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [mode, setMode] = useState<string | null>(null); 
   const audioChunksRef = useRef<Blob[]>([]);
 
   const startRecording = async () => {
@@ -54,7 +63,7 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ audio: base64Audio }),
+            body: JSON.stringify({ audio: base64Audio, mode }),
           });
 
           const data = await response.json();
@@ -73,13 +82,26 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
   };
 
   return (
-    <button
-      className="px-3 py-2 bg-red-700 text-white rounded-3xl my-4"
-      onClick={recording ? stopRecording : startRecording}
-      disabled={loading}
-    >
-      {recording ? 'Stop Recording' : <div className="flex"><Mic /></div> }
-      
-    </button>
+    <div className="flex space-x-5 items-center justify-center">
+      <button
+        className="px-3 py-2 bg-red-700 text-white rounded-3xl my-4"
+        onClick={recording ? stopRecording : startRecording}
+        disabled={loading}
+      >
+        {recording ? 'Stop Recording' : <div className="flex"><Mic /></div>}
+
+      </button>
+      <Select onValueChange={(value) => setMode(value)}>
+        <SelectTrigger className="w-[180px] bg-white">
+          <SelectValue placeholder="Select a mode" />
+        </SelectTrigger>
+        <SelectContent >
+          <SelectItem value="buccal">Buccal</SelectItem>
+          <SelectItem value="palatal">Palatal</SelectItem>
+          <SelectItem value="lingual">Lingual</SelectItem>
+        </SelectContent>
+      </Select>
+
+    </div>
   );
 }
