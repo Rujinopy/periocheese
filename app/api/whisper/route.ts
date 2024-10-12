@@ -28,6 +28,8 @@ export async function POST(req: Request) {
       model: "whisper-1",
     });
 
+    console.log(transcriptions)
+
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -39,8 +41,8 @@ During periodontal charting, I will provide you with messages that contain sever
 Tooth Number: A number like 13, 27, etc.
 Pocket Depth: Three numbers representing the pocket depth at the mesial, buccal, and distal sides. These might be referred to as "pocket depth," "pd," "พีดี," or simply by stating the numbers.
 Gingival Margin: Three numbers representing the gingival margin at the distal, buccal, and mesial sides. These might be referred to as "gingival margin," "GM," "จีเอ็ม," or simply by stating the numbers.
-Bleeding on Probing (BOP): Three values (0 or 1) indicating the presence of bleeding at the mesial, buccal, and distal sides. These might be referred to as "bleeding," "BOP," or indirectly through the spoken language.
-Plaque: Three values (0 or 1) indicating the presence of plaque at the mesial, buccal, and distal sides. These might be referred to as "plaque," "พลาค," "พลัค," or indirectly through the spoken language.
+Bleeding on Probing (BOP): Three values (0 or 1) indicating the presence of bleeding at the mesial, buccal, and distal sides. These might be referred to as "bleeding," "BOP," (can be mispelled as บรีดดิ่ง/ greeting) or indirectly through the spoken language.
+Plaque: Three values (0 or 1) indicating the presence of plaque at the distal, buccal, and mesial sides. These might be referred to as "plaque," "พลาค," "พลัค," (can be mispelled as พลักษ์ / Park / Plak /Plus) or indirectly through the spoken language.
 Instructions:
 
 Extract the Tooth Number, Pocket Depth, Gingival Margin, Bleeding on Probing, and Plaque measurements.
@@ -52,7 +54,7 @@ mode palatal add 'p' after toothnumber
 
 Examples:
 
-Input: "mode: buccal Oh, it looks like there's a lot to do. It's been some time since we last met—8 months, right? Let me check, so I'll start with this 13, okay? So, it's 7 4 5 for the pocket depth, margin is 4 2 8, no bleeding, but plaque is there on buccal and distal."
+Input: "mode: buccal Oh, it looks like there's a lot to do. It's been some time since we last met—8 months, right? Let me check, so I'll start with this 13, okay? So, it's 7 4 5 for the pocket depth, margin is 4 2 8, no bleeding, but plaque is there 0 1 1"
 
 Output: [{"toothNumber": "13b", "depth": [7, 4, 5], "margin": [4, 2, 8], "bleeding": [0, 0, 0], "plaque": [0, 1, 1]}]
 
@@ -60,7 +62,7 @@ Input: "mode: palatal For pocket depth สองแปด สี่ ห้า �
 
 Output: [{"toothNumber": "28p", "depth": [4, 5, 11], "margin": [5, 3, 6], "bleeding": [1, 0, 1], "plaque": [0, 0, 0]}]
 
-Input: "mode: buccal For pocket depth อะไรนะ pocket depth ซี่ 11 เท่าไหร่นะ อ๋อ 7 4 5, จีเอ็ม is 3 3 3, no BOP, and plaque is only on the distal.
+Input: "mode: buccal For pocket depth อะไรนะ pocket depth ซี่ 11 เท่าไหร่นะ อ๋อ 7 4 5, จีเอ็ม is 3 3 3, no BOP, and plak 0 0 1
 cut 12 pocket depth 4 5 3 margin 2 2 2 "
 
 Output: [{"toothNumber": "11b", "depth": [7, 4, 5], "margin": [3, 3, 3], "bleeding": [0, 0, 0], "plaque": [0, 0, 1]}, {"toothNumber": "12b", "depth": [4, 5, 3], "margin": [2, 2, 2]}]
@@ -80,10 +82,14 @@ you: [{"toothNumber": "21", "depth": [3, 5, 4], "margin": [1, 4, 2], "plaque": [
 example
 user: 21 Margin 241 bleeding 110 
 [{"toothNumber": "21", "margin": [1, 4, 2], "bleeding": [1, 1, 0]}]
-user: 21 Pocket Depth 453 
+user: 21 PD 453 
 you: [{"toothNumber": "21", "depth": [3, 5, 4]}]
 
 4. If palatal mode is used for 31-38 or 41-48, convert to lingual mode.
+
+5. sometimes the input was ruined just go with the context like if
+input: mode: buccal 17-PD454-MARGIN333-PLUS-011-READING110
+output: [{"toothNumber": "17", "depth": [4, 5, 4], "margin": [3,3,3], "plaque": [0,1,1], "bleeding": [1,1,0]}]
 
 ` },
         {
@@ -94,6 +100,8 @@ you: [{"toothNumber": "21", "depth": [3, 5, 4]}]
     });
 
     fs.unlinkSync(filePath)
+
+    console.log(completion.choices[0].message)
 
     return Response.json(completion.choices[0].message);
   } catch (error) {
