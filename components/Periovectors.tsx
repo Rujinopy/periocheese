@@ -17,6 +17,14 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
         const toothInfo = toothData.find(tooth => tooth.toothNumber.toString() === toothNumber);
         const xCoords = toothInfo ? toothInfo.xCoords : [];
         const xinterCoords = toothInfo ? toothInfo.xinterCoords : [];
+        const sideoftooth = toothNumber.slice(2,)
+        let yValue = 585
+
+        if (quadrant === Quadrants.Q1P || quadrant === Quadrants.Q2P) {
+                yValue = 694
+        }
+
+
 
         // Example function to adjust SVG points based on pocket depth and margin
         const calculatePoints = (mode: Mode) => {
@@ -25,7 +33,10 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 if (mode === "GM") {
                         return xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
-                                const y = 585 + parseInt(gingivalMargin[index]) * 6.5
+                                const y = sideoftooth === 'b' ?
+                                        yValue + parseInt(gingivalMargin[index]) * 6.5
+                                        :
+                                        yValue - parseInt(gingivalMargin[index]) * 6.5
                                 return `${x},${y}`;
                         }).join(' ');
                 }
@@ -33,7 +44,10 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 if (mode === "CAL") {
                         return xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
-                                const y = 585 + ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
+                                const y = sideoftooth === 'b' ?
+                                        yValue + ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
+                                        :
+                                        yValue - ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
                                 return `${x},${y}`;
                         }).join(' ');
                 }
@@ -41,13 +55,19 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 if (mode === "PD") {
                         let CAL_Line = xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
-                                const y = 585 + ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
+                                const y = sideoftooth === 'b' ?
+                                        yValue + ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
+                                        :
+                                        yValue - ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
                                 return `${x},${y}`;
                         }).join(' ');
 
                         let GM_Line = xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
-                                const y = 585 + parseInt(gingivalMargin[index]) * 6.5
+                                const y = sideoftooth === 'b' ?
+                                        yValue + parseInt(gingivalMargin[index]) * 6.5
+                                        :
+                                        yValue - parseInt(gingivalMargin[index]) * 6.5
                                 return `${x},${y}`;
                         }).toReversed().join(' ');
 
@@ -55,24 +75,22 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 }
         };
 
-
-
         const calculateInterPoints = (mode: Mode) => {
-                const sideoftooth = toothNumber.slice(2,)
+
                 //use GM from mesial of tooth number and use distal from another
-                const nextToothNumber = String(extractNumericPart(toothNumber) - 1)+ sideoftooth; // Decrement the numeric part
+                const nextToothNumber = String(extractNumericPart(toothNumber) - 1) + sideoftooth; // Decrement the numeric part
                 const nextPocketDepth = watch(`${nextToothNumber}.depth`) || [0, 0, 0]; // Watch pocket depth values
                 const nextGingivalMargin = watch(`${nextToothNumber}.margin`) || [0, 0, 0]; // Watch gingival margin values
-                
+
                 if (mode === "GM") {
                         return xinterCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 if (index === 0) {
-                                        const y = 585 + parseInt(gingivalMargin[2]) * 6.5
+                                        const y = sideoftooth === 'b' ? yValue + parseInt(gingivalMargin[2]) * 6.5 : yValue - parseInt(gingivalMargin[2]) * 6.5
                                         return `${x},${y}`;
                                 }
                                 if (index === 1) {
-                                        const y = 585 + parseInt(nextGingivalMargin[0]) * 6.5
+                                        const y = sideoftooth === 'b' ? yValue + parseInt(nextGingivalMargin[0]) * 6.5 : yValue - parseInt(nextGingivalMargin[0]) * 6.5
                                         return `${x},${y}`;
                                 }
                         }).join(' ');
@@ -82,11 +100,17 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                         return xinterCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 if (index === 0) {
-                                        const y = 585 + ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
+                                                :
+                                                yValue - ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
                                         return `${x},${y}`;
                                 }
                                 if (index === 1) {
-                                        const y = 585 + ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
+                                                :
+                                                yValue - ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
                                         return `${x},${y}`;
                                 }
                         }).join(' ');
@@ -96,22 +120,35 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                         let CAL_Line = xinterCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 if (index === 0) {
-                                        const y = 585 + ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
+                                                :
+                                                yValue - ((parseFloat(gingivalMargin[2]) * 6.5) - (parseFloat(pocketDepth[2]) * 6.5))
+
                                         return `${x},${y}`;
                                 }
                                 if (index === 1) {
-                                        const y = 585 + ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
+                                                :
+                                                yValue - ((parseFloat(nextGingivalMargin[0]) * 6.5) - (parseFloat(nextPocketDepth[0]) * 6.5))
                                         return `${x},${y}`;
                                 }
                         }).join(' ');
 
                         let GM_Line = xinterCoords.map((x, index) => {
                                 if (index === 0) {
-                                        const y = 585 + parseInt(gingivalMargin[2]) * 6.5
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + parseInt(gingivalMargin[2]) * 6.5
+                                                :
+                                                yValue - parseInt(gingivalMargin[2]) * 6.5
                                         return `${x},${y}`;
                                 }
                                 if (index === 1) {
-                                        const y = 585 + parseInt(nextGingivalMargin[0]) * 6.5
+                                        const y = sideoftooth === 'b' ?
+                                                yValue + parseInt(nextGingivalMargin[0]) * 6.5
+                                                :
+                                                yValue - parseInt(nextGingivalMargin[0]) * 6.5
                                         return `${x},${y}`;
                                 }
                         }).toReversed().join(' ');

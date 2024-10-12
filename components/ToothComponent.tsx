@@ -13,9 +13,10 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
     const { control } = useFormContext();
 
     return (
-        <div className='text-xs divide-y-2 divide-black'>
-            <h3 className='py-1 text-center '>{toothNumber.slice(0, -1)}</h3>
-            <div className='divide-y-2 divide-black'>
+        <div className='text-xs divide-y-2 divide-black w-[47px]'>
+            { quadrant.slice(2,) != 'P' && quadrant.slice(2,) != 'L' ?  <h3 className='py-1 text-center '>{toothNumber.slice(0, -1)}</h3> : null }
+
+            <div className={`divide-y-2 divide-black flex  ${ quadrant.slice(2,) != 'P' && quadrant.slice(2,) != 'L' ? "flex-col" : "flex-col-reverse" }`}>
                 <div className="flex">
                     {[0].map(index => (
                         <Controller
