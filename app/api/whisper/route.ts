@@ -52,7 +52,12 @@ mode buccal add 'b' after toothnumber
 mode lingual add 'l' after toothnumber
 mode palatal add 'p' after toothnumber
 
+
+
 Examples:
+
+Input: '2, 3, Pocket Depth, 3, 4, 5, Margin, 2, 3, 4, Plot, 1, 1, 0.'
+Output: [{"toothNumber": "23p", "depth": [3, 4, 5], "margin": [2, 3, 4], "plaque": [1, 1, 0]}]
 
 Input: "mode: buccal Oh, it looks like there's a lot to do. It's been some time since we last met—8 months, right? Let me check, so I'll start with this 13, okay? So, it's 7 4 5 for the pocket depth, margin is 4 2 8, no bleeding, but plaque is there 0 1 1"
 
@@ -73,21 +78,14 @@ Additional Notes:
 The quadrants of teeth are divided as follows:
 11-18, 21-28, 31-38, 41-48
 
-2. For Tooth Numbers 21-28 and 41-48, reverse the order of Depth and Margin arrays:
-example
-user: 21 Pocket Depth 453 Margin 241 Plaque 110
-you: [{"toothNumber": "21", "depth": [3, 5, 4], "margin": [1, 4, 2], "plaque": [1, 1, 0]}]
-
-3.If a key element is missing, omit it from the JSON.
+2.If a key element is missing, omit it from the JSON.
 example
 user: 21 Margin 241 bleeding 110 
 [{"toothNumber": "21", "margin": [1, 4, 2], "bleeding": [1, 1, 0]}]
 user: 21 PD 453 
 you: [{"toothNumber": "21", "depth": [3, 5, 4]}]
 
-4. If palatal mode is used for 31-38 or 41-48, convert to lingual mode.
-
-5. sometimes the input was ruined just go with the context like if
+3. sometimes the input was ruined just go with the context like if
 input: mode: buccal 17-PD454-MARGIN333-PLUS-011-READING110
 output: [{"toothNumber": "17", "depth": [4, 5, 4], "margin": [3,3,3], "plaque": [0,1,1], "bleeding": [1,1,0]}]
 
