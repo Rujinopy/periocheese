@@ -3,10 +3,11 @@
 import React, { useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import Toggleform from './Toggleform';
+import { Quadrants } from './utils/utils';
 
 interface ToothComponentProps {
     toothNumber: string
-    quadrant: string;
+    quadrant: Quadrants;
 }
 
 const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }) => {
@@ -14,10 +15,10 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
 
     return (
         <div className='text-xs divide-y-2 divide-black w-[47px]'>
-            { quadrant.slice(2,) != 'P' && quadrant.slice(2,) != 'L' ?  <h3 className='py-1 text-center '>{toothNumber.slice(0, -1)}</h3> : null }
+            {quadrant.slice(2,) != 'P' && quadrant.slice(2,) != 'L' ? <h3 className='py-1 text-center '>{toothNumber.slice(0, -1)}</h3> : null}
 
-            <div className={`divide-y-2 divide-black flex  ${ quadrant.slice(2,) != 'P' && quadrant.slice(2,) != 'L' ? "flex-col" : "flex-col-reverse" }`}>
-                <div className="flex">
+            <div className={`divide-y-2 divide-black flex  ${getFlexClass(quadrant)}`}>
+                <div className="flex items-center justify-center ">
                     {[0].map(index => (
                         <Controller
                             key={index}
@@ -25,7 +26,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                             control={control}
                             defaultValue="" // Set default value to an empty string or a specific value if needed
                             render={({ field }) => (
-                                <select {...field} className="w-full text-center">
+                                <select {...field} className="text-center flex justify-center items-center p-0 h-[25px] w-[47px] m-0">
                                     <option value="">-</option>
                                     <option value={1}>I</option>
                                     <option value={2}>II</option>
@@ -48,7 +49,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                 {/* <label>Furcation</label> */}
                 <div className="flex divide-x-2 divide-black ">
                     {[0].map(index => (
-                        (toothNumber.endsWith('6') || toothNumber.endsWith('7') || toothNumber.endsWith('8')) ? (
+                        (toothNumber.slice(1,2).endsWith('6') || toothNumber.slice(1,2).endsWith('7') || toothNumber.slice(1,2).endsWith('8')) ? (
                             <Toggleform
                                 key={index}
                                 name={`${toothNumber}.furcation.${index}`}
@@ -86,7 +87,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                 </div>
                 {/* <label>GM </label> */}
                 <div className="flex">
-                    {(["Q1B", "Q1P"].includes(quadrant) ? [0, 1, 2] : [2, 1, 0]).map(index => (
+                    {(["Q1B", "Q1P", "Q4B", "Q4L"].includes(quadrant) ? [0, 1, 2] : [2, 1, 0]).map(index => (
                         <Controller
                             key={index}
                             name={`${toothNumber}.margin.${index}`}
@@ -106,7 +107,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                 <div>
                     {/* <label>PD </label> */}
                     <div className="flex space-x-0">
-                        {(["Q1B", "Q1P"].includes(quadrant) ? [0, 1, 2] : [2, 1, 0]).map(index => (
+                        {(["Q1B", "Q1P", "Q4B", "Q4L"].includes(quadrant) ? [0, 1, 2] : [2, 1, 0]).map(index => (
                             <Controller
                                 key={index}
                                 name={`${toothNumber}.depth.${index}`}
@@ -121,24 +122,6 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
                                 )}
                             />
                         ))}
-
-
-                        {/* {['mesial', 'buccal', 'distal'].map(index => (
-                            <Controller
-                                key={index}
-                                name={`${toothNumber}.depth.${index}`}
-                                control={control}
-                                defaultValue={0}
-                                render={({ field }) => (
-                                    <input
-                                        type="number"
-                                        {...field}
-                                        className="w-full text-center"
-
-                                    />
-                                )}
-                            />
-                        ))} */}
                     </div>
                 </div>
             </div>
@@ -147,3 +130,9 @@ const ToothComponent: React.FC<ToothComponentProps> = ({ toothNumber, quadrant }
 };
 
 export default ToothComponent;
+
+
+const getFlexClass = (quadrant: Quadrants) => {
+    const validFlexCol = ['Q1B', 'Q2B', 'Q3L', 'Q4L'];
+    return validFlexCol.includes(quadrant) ? 'flex-col' : 'flex-col-reverse';
+};
