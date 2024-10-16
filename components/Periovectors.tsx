@@ -13,6 +13,7 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
         const pocketDepth = watch(`${toothNumber}.depth`) || [0, 0, 0]; // Watch pocket depth values
         const gingivalMargin = watch(`${toothNumber}.margin`) || [0, 0, 0]; // Watch gingival margin values
         const dontswappedQuadrant = ["Q1B", "Q2B", "Q4L", "Q3L"]
+        const status = watch(`${toothNumber}.status`) || 'present';
         // Find the xCoords for the given toothNumber
         const toothInfo = toothData.find(tooth => tooth.toothNumber.toString() === toothNumber);
         const xCoords = toothInfo ? toothInfo.xCoords : [];
@@ -165,17 +166,21 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
 
         return (
                 <>
-                        <polygon className="pocket" points={calculatePoints(Mode.PD)} ></polygon>
-                        <polyline className="attachment_level" points={calculatePoints(Mode.CAL)}  ></polyline>
-                        <polyline className="gingival_margin" points={calculatePoints(Mode.GM)}  ></polyline>
-                        {
-                                !arraysEqual(xinterCoords, [0, 0]) ?
-                                        <>
-                                                <polygon className="pocket" points={calculateInterPoints(Mode.PD)} ></polygon>
-                                                <polyline className="attachment_level" points={calculateInterPoints(Mode.CAL)}  ></polyline>
-                                                <polyline className="gingival_margin" points={calculateInterPoints(Mode.GM)}  ></polyline>
-                                        </> : null
-                        }
+                        {status === "present" ?
+                                <>
+                                        <polygon className="pocket" points={calculatePoints(Mode.PD)} ></polygon>
+                                        <polyline className="attachment_level" points={calculatePoints(Mode.CAL)}  ></polyline>
+                                        <polyline className="gingival_margin" points={calculatePoints(Mode.GM)}  ></polyline>
+                                        {
+                                                !arraysEqual(xinterCoords, [0, 0]) ?
+                                                        <>
+                                                                <polygon className="pocket" points={calculateInterPoints(Mode.PD)} ></polygon>
+                                                                <polyline className="attachment_level" points={calculateInterPoints(Mode.CAL)}  ></polyline>
+                                                                <polyline className="gingival_margin" points={calculateInterPoints(Mode.GM)}  ></polyline>
+                                                        </> : null
+                                        }
+                                </>
+                                : null}
                 </>
         );
 };
@@ -200,4 +205,4 @@ const extractNumericPart = (toothNumber: string): number => {
 const getToswap = (quadrant: Quadrants) => {
         const toswapQuadrants = ['Q1B', 'Q2B', 'Q3L', 'Q4L'];
         return toswapQuadrants.includes(quadrant) ? 'flex-col' : 'flex-col-reverse';
-      };
+};

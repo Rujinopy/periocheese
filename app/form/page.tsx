@@ -6,8 +6,9 @@ import ToothComponent from '@/components/ToothComponent';
 import { Kodchasan } from 'next/font/google'
 import RecordingButton from '@/components/RecordingButton';
 import Periovectors from '@/components/Periovectors';
-import { Quadrants } from '@/components/utils/utils';
+import { Quadrants, toothData } from '@/components/utils/utils';
 import SaveAsImageButton from '@/components/SaveAsImageButton'; // Import the button
+import LineAbsence from '@/components/LineAbsence';
 
 const kodchasan = Kodchasan({ subsets: ['thai'], weight: ['200', '300', '400', '500', '600'] })
 
@@ -18,7 +19,7 @@ const ChartComponent: React.FC = () => {
     const formRef = useRef(null); // Reference to the form container
 
     const methods = useForm();
-    const { setValue } = methods;
+    const { setValue, watch } = methods;
 
     useEffect(() => {
         if (transcription) {
@@ -26,15 +27,13 @@ const ChartComponent: React.FC = () => {
                 console.log(transcription);
                 const dataArray = JSON.parse(transcription);
 
-
-
                 // Check if the parsed data is an array
                 if (Array.isArray(dataArray)) {
                     dataArray.forEach((data) => {
                         const quadrant = data.toothNumber.slice(0, 1)
                         // Conditionally set depth if it exists
                         if (data.depth) {
-                            if (quadrant === '1' || quadrant === '3') {
+                            if (quadrant === '1' || quadrant === '4') {
                                 setValue(`${data.toothNumber}.depth`, data.depth);
                             }
                             else {
@@ -44,7 +43,7 @@ const ChartComponent: React.FC = () => {
 
                         // Conditionally set margin if it exists
                         if (data.margin) {
-                            if (quadrant === '1' || quadrant === '3') {
+                            if (quadrant === '1' || quadrant === '4') {
                                 setValue(`${data.toothNumber}.margin`, data.margin);
                             }
                             else {
@@ -85,19 +84,24 @@ const ChartComponent: React.FC = () => {
             <div className='bg-yellow-300 min-h-[20vh] flex items-center justify-center' >
                 <h2 className={`${kodchasan.className} bg-yellow-300 font-extrabold text-center py-8 text-6xl z-40`}>Periocheese :D</h2>
             </div>
-            <div className='fixed top-10 left-4 flex z-50'>
+            <div className='fixed top-[220px] left-[700px] flex z-50'>
                 <RecordingButton
                     setAudioURL={setAudioURL}
                     setTranscription={setTranscription}
                     setLoading={setLoading}
                     loading={loading} // Pass the loading state here
                 />
-                <SaveAsImageButton formRef={formRef}/>
+                <SaveAsImageButton formRef={formRef} />
+
             </div>
             <FormProvider {...methods} >
-                <form ref={formRef} onSubmit={methods.handleSubmit(onSubmit)}  className='mx-auto justify-center items-center w-[1200px] h-[1600px] top-0 left-0'>
+                <form ref={formRef} onSubmit={methods.handleSubmit(onSubmit)} className='mx-auto justify-center items-center w-[1200px] h-[1600px] top-0 left-0'>
+                    {/* <button className='z-50  bg-blue-500 text-white p-2 rounded-md bottom-10 right-4' type="submit">
+                        Submit
+                    </button> */}
                     <div className="relative w-full mx-auto " >
                         <svg className='absolute z-10 left-0 top-0 w-[1200px] h-[1600px] ' >
+
                             {['18b', '17b', '16b', '15b', '14b', '13b', '12b', '11b'].map(tooth => (
                                 <Periovectors key={tooth} toothNumber={tooth} quadrant={Quadrants.Q1B} />
                             ))}
@@ -123,14 +127,21 @@ const ChartComponent: React.FC = () => {
                                 <Periovectors key={tooth} toothNumber={tooth} quadrant={Quadrants.Q4L} />
                             ))}
                         </svg>
-                        <div  className="md:scale-100 transform scale-100 mx-auto"> {/* Adjust scale as needed */}
+                        <div className="md:scale-100 transform scale-100 mx-auto">
+
+                            {toothData.map((data, index)=> (
+                                data?.absenceLine ? (
+                                    <LineAbsence key={index} toothNumber={data.toothNumber} />
+                                ) : null
+                            ))}
+
                             <div className="absolute w-[1200px] h-[1600px] z-20 top-0 left-0">
                                 <img
                                     src={`/grid/uk-svg_grids-01.svg`}
                                     alt="grid"
                                     width="1200"
                                     height="1600"
-                                    className="w-[1200px] h-[1600px]"                  
+                                    className="w-[1200px] h-[1600px] z-31"
                                 />
 
                             </div>
@@ -148,7 +159,7 @@ const ChartComponent: React.FC = () => {
                             {/* Top Teeth */}
                             <div className='flex space-x-8 bg-white absolute' >
 
-                                <div className='flex divide-x-2 divide-black border-2 border-black'>
+                                <div className='flex divide-x-2 divide-black border border-black'>
                                     {['18b', '17b', '16b', '15b', '14b', '13b', '12b', '11b'].map(tooth => (
                                         <ToothComponent key={tooth} toothNumber={tooth} quadrant={Quadrants.Q1B} />
                                     ))}
@@ -159,11 +170,10 @@ const ChartComponent: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className='flex space-x-10 bg-white absolute top-[28.2rem] -left-10 h-auto'>
+                            <div className='flex space-x-9 bg-white absolute top-[28.2rem] -left-10 h-auto'>
                                 <div className='h-full bg-white absolute z-50 top-0 -left-20 w-[90px]'>
                                 </div>
-                                <div className='h-full bg-white absolute z-50 top-0 -right-20 w-[80px]'> </div>
-
+                                {/* <div className='h-full bg-white absolute z-50 top-0 -right-20 w-[80px]'> </div> */}
                                 <div className='flex divide-x-2 divide-black border-2 border-black'>
                                     {['18p', '17p', '16p', '15p', '14p', '13p', '12p', '11p'].map(tooth => (
                                         <ToothComponent key={tooth} toothNumber={tooth} quadrant={Quadrants.Q1P} />
@@ -204,10 +214,6 @@ const ChartComponent: React.FC = () => {
                             </div>
                         </div>
                     </div>
-
-                    <button className='z-50 absolute bg-blue-500 text-white p-2 rounded-md bottom-4 right-4' type="submit">
-                        Submit
-                    </button>
                 </form>
             </FormProvider>
         </div>
