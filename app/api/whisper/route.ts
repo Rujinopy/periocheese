@@ -38,23 +38,26 @@ export async function POST(req: Request) {
 
 During periodontal charting, I will provide you with messages that contain several key elements:
 
-Tooth Number: A number like 13, 27, etc.
+Tooth Number: A number must be something like 13b, 27p, 37l, 41b, 41l etc. depend on side and quadrant of tooth.
 Pocket Depth: Three numbers representing the pocket depth at the mesial, buccal, and distal sides. These might be referred to as "pocket depth," "pd," "พีดี," or simply by stating the numbers.
 Gingival Margin: Three numbers representing the gingival margin at the distal, buccal, and mesial sides. These might be referred to as "gingival margin," "GM," "จีเอ็ม," or simply by stating the numbers.
 Bleeding on Probing (BOP): Three values (0 or 1) indicating the presence of bleeding at the mesial, buccal, and distal sides. These might be referred to as "bleeding," "BOP," (can be mispelled as บรีดดิ่ง/ greeting) or indirectly through the spoken language.
 Plaque: Three values (0 or 1) indicating the presence of plaque at the distal, buccal, and mesial sides. These might be referred to as "plaque," "พลาค," "พลัค," (can be mispelled as พลักษ์ / Park / Plak /Plus) or indirectly through the spoken language.
+Mobility: There are three type "1", "2" and "3".
+
 Instructions:
 
-Extract the Tooth Number, Pocket Depth, Gingival Margin, Bleeding on Probing, and Plaque measurements.
+Extract the Tooth Number, Pocket Depth, Gingival Margin, Bleeding on Probing, Mobility and Plaque measurements.
 Return the information in a valid JSON string that can be parsed as a real JSON object. a word "cut" used to separate between teeth.
 There are mode that will be specified at the beginning
 mode buccal add 'b' after toothnumber
 mode lingual add 'l' after toothnumber
 mode palatal add 'p' after toothnumber
 
-
-
 Examples:
+
+Input: '4, 2, Mobility, 3'
+Output: [{"toothNumber": "42b", "mobility": "3"}]
 
 Input: '2, 3, Pocket Depth, 3, 4, 5, Margin, 2, 3, 4, Plot, 1, 1, 0.'
 Output: [{"toothNumber": "23p", "depth": [3, 4, 5], "margin": [2, 3, 4], "plaque": [1, 1, 0]}]
@@ -63,14 +66,19 @@ Input: "mode: buccal Oh, it looks like there's a lot to do. It's been some time 
 
 Output: [{"toothNumber": "13b", "depth": [7, 4, 5], "margin": [4, 2, 8], "bleeding": [0, 0, 0], "plaque": [0, 1, 1]}]
 
-Input: "mode: palatal For pocket depth สองแปด สี่ ห้า สิบเอ็ด, GM is 5 3 6, BOP is 1 0 1, and no plaque."
+Input: "mode: palatal pocket depth สองแปด สี่ ห้า สิบเอ็ด, GM is 5 3 6, BOP is 1 0 1, and no plaque."
 
 Output: [{"toothNumber": "28p", "depth": [4, 5, 11], "margin": [5, 3, 6], "bleeding": [1, 0, 1], "plaque": [0, 0, 0]}]
 
-Input: "mode: buccal For pocket depth อะไรนะ pocket depth ซี่ 11 เท่าไหร่นะ อ๋อ 7 4 5, จีเอ็ม is 3 3 3, no BOP, and plak 0 0 1
+Input: "mode: buccal pocket depth อะไรนะ pocket depth ซี่ 11 เท่าไหร่นะ อ๋อ 7 4 5, จีเอ็ม is 3 3 3, no BOP, and plak 0 0 1
 cut 12 pocket depth 4 5 3 margin 2 2 2 "
-
 Output: [{"toothNumber": "11b", "depth": [7, 4, 5], "margin": [3, 3, 3], "bleeding": [0, 0, 0], "plaque": [0, 0, 1]}, {"toothNumber": "12b", "depth": [4, 5, 3], "margin": [2, 2, 2]}]
+
+Input: "mode: lingual ซีสาม Pocket Depth ซีฮ้าหก Margin นึง สอง สาม Plark นึง สูน นึง Breeding สูน นึง นึง
+Output: [{"toothNumber": "43l", "depth": [4, 5, 6], "margin": [1, 2, 3], "bleeding": [0, 1, 1], "plaque": [1, 0, 1]}]
+
+InputL: "mode: lingual 4-3 Pocket Depth 456 Margin 1-2-3"
+Output: [{"toothNumber": "43l", "depth": [4, 5, 6], "margin": [1, 2, 3]}]
 
 Additional Notes:
 
@@ -88,6 +96,11 @@ you: [{"toothNumber": "21", "depth": [3, 5, 4]}]
 3. sometimes the input was ruined just go with the context like if
 input: mode: buccal 17-PD454-MARGIN333-PLUS-011-READING110
 output: [{"toothNumber": "17", "depth": [4, 5, 4], "margin": [3,3,3], "plaque": [0,1,1], "bleeding": [1,1,0]}]
+
+wrong example: 
+input: '4, 4, mobility, 3'
+wrongoutput: [{"toothNumber": "4b", "mobility": "3"}] because tooth number must be 2digit followed with side like 44b
+tightoutput: {"toothNumber": "44b", "mobility": "3"}]
 
 ` },
         {
