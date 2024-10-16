@@ -84,7 +84,7 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
   return (
     <div className="flex space-x-5 items-center justify-center">
       <button
-        className="px-3 py-2 bg-red-700 text-white rounded-3xl my-4"
+        className="px-3 py-2 bg-red-500 hover:bg-red-400 border-2 border-black text-white rounded-3xl my-4"
         onClick={recording ? stopRecording : startRecording}
         disabled={loading}
       >
@@ -92,10 +92,10 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
 
       </button>
       <Select onValueChange={(value) => setMode(value)}>
-        <SelectTrigger className="w-[180px] bg-white">
+        <SelectTrigger className="w-[180px] bg-white border-2 border-black">
           <SelectValue placeholder="Select a mode" />
         </SelectTrigger>
-        <SelectContent >
+        <SelectContent className="border-2 border-black">
           <SelectItem value="buccal">Buccal</SelectItem>
           <SelectItem value="palatal">Palatal</SelectItem>
           <SelectItem value="lingual">Lingual</SelectItem>

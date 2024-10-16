@@ -26,10 +26,12 @@ const SaveAsImageButton: React.FC<SaveAsImageButtonProps> = ({ formRef }) => {
   return (
     <button
       onClick={handleSaveImage}
-      className="mt-4 bg-green-500 text-white px-4 py-2"
+      className="rounded-lg ml-5 text-black bg-[#FFDE59] border-2 border-black px-4 p-2 h-fit my-auto hover:bg-[#ffeaba] transition-all duration-200 ease-in-out shadow-[0px_0px_0px_0px_#000] hover:shadow-[4px_4px_0px_0px_#000]"
     >
-      Save as Image
+      Save Chart as Image
     </button>
+
+
   );
 };
 
