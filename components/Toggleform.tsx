@@ -10,7 +10,7 @@ interface ToggleButtonProps {
   offColor?: string;
 }
 
-const Toggleform: React.FC<ToggleButtonProps> = ({ name, defaultValue = 0, onColor = 'bg-yellow-500', offColor = 'bg-gray-300' }) => {
+const Toggleform: React.FC<ToggleButtonProps> = ({ name, defaultValue = 0, onColor = 'bg-yellow-500', offColor = 'bg-white' }) => {
   const { control } = useFormContext();
   const [toggled, setToggled] = useState(defaultValue === 1);
 
