@@ -22,7 +22,7 @@ const LineAbsence: React.FC<ToothComponentProps> = ({ toothNumber }) => {
         left: `${left}px`,
         top: `${top}px`,
       }}
-      className="absolute z-30 pointer-events-none"
+      className="absolute pointer-events-none"
     >
      {status === "absent" ?
       <img

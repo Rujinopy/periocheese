@@ -92,7 +92,7 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
 
       </button>
       <Select onValueChange={(value) => setMode(value)}>
-        <SelectTrigger className="w-[180px] bg-white border-2 border-black">
+        <SelectTrigger className="w-[180px] bg-white border-2 border-black text-black">
           <SelectValue placeholder="Select a mode" />
         </SelectTrigger>
         <SelectContent className="border-2 border-black">
