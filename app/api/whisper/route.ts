@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
   try {
 
-    fs.writeFileSync(filePath, buffer)
+    fs.writeFileSync(filePath, new Uint8Array(buffer))
     const transcriptions = await openai.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: "whisper-1",
@@ -56,10 +56,10 @@ mode palatal add 'p' after toothnumber
 
 Examples:
 
-Input: '4, 2, Mobility, 3'
+Input: 'mode: buccal 4, 2, Mobility, 3'
 Output: [{"toothNumber": "42b", "mobility": "3"}]
 
-Input: '2, 3, Pocket Depth, 3, 4, 5, Margin, 2, 3, 4, Plot, 1, 1, 0.'
+Input: 'mode: palatal 2, 3, Pocket Depth, 3, 4, 5, Margin, 2, 3, 4, Plot, 1, 1, 0.'
 Output: [{"toothNumber": "23p", "depth": [3, 4, 5], "margin": [2, 3, 4], "plaque": [1, 1, 0]}]
 
 Input: "mode: buccal Oh, it looks like there's a lot to do. It's been some time since we last met—8 months, right? Let me check, so I'll start with this 13, okay? So, it's 7 4 5 for the pocket depth, margin is 4 2 8, no bleeding, but plaque is there 0 1 1"
