@@ -288,7 +288,7 @@ export default function Page() {
                     </div>
 
                     <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[805px]">
-                      {[
+                        {[
                         "18p",
                         "17p",
                         "16p",
@@ -297,22 +297,23 @@ export default function Page() {
                         "13p",
                         "12p",
                         "11p",
-                      ].map((tooth) => (
+                        ].map((tooth) => (
                         <ToothComponent
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q1P}
                           sections={{
-                            mobility: false,
-                            implant: false, // Hide implant section
-                            furcation: true,
-                            bleeding: true,
-                            plaque: true, // Hide plaque section
-                            margin: true,
-                            depth: true,
+                          mobility: false,
+                          implant: false, // Hide implant section
+                          furcation: true,
+                          bleeding: true,
+                          plaque: true, // Hide plaque section
+                          margin: true,
+                          depth: true,
                           }}
+                          sectionOrder={["furcation", "bleeding", "plaque", "depth", "margin"]}
                         />
-                      ))}
+                        ))}
                     </div>
 
                     <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[805px]">
@@ -339,6 +340,7 @@ export default function Page() {
                             margin: true,
                             depth: true,
                           }}
+                          sectionOrder={["furcation", "bleeding", "plaque", "depth", "margin"]}
                         />
                       ))}
                     </div>
@@ -358,6 +360,7 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q3B}
+                          sectionOrder={["mobility", "implant","furcation", "bleeding", "plaque", "depth", "margin"]}
                         />
                       ))}
                     </div>
@@ -405,7 +408,7 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q4B}
-                          
+                          sectionOrder={["mobility", "implant","furcation", "bleeding", "plaque", "depth", "margin"]}
                         />
                       ))}
                     </div>
