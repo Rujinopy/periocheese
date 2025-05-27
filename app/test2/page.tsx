@@ -443,9 +443,9 @@ export default function Page() {
             </FormProvider>
             <div className="absolute w-full h-full z-20 top-0 left-0">
               <img
-                src="/grid/uk-svg_grids-01.svg"
+                src="/grid/chart-grid-box.svg"
                 alt="grid"
-                className="w-full h-full opacity-10"
+                className="w-full h-full"
               />
             </div>
 
