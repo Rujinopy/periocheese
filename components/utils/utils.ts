@@ -33,255 +33,520 @@ export const teethStatus: Record<string, string> = {
   "48": "present",
 };
 
+// export const implantStatus: Record<string, boolean> = {
+//   "18": false,
+//   "17": false,
+//   "16": false,
+//   "15": false,
+//   "14": false,
+//   "13": false,
+//   "12": false,
+//   "11": false,
+//   "21": false,
+//   "22": false,
+//   "23": false,
+//   "24": false,
+//   "25": false,
+//   "26": false,
+//   "27": false,          
+//   "28": false,
+//   "38": false,
+//   "37": false,
+//   "36": false,
+//   "35": false,
+//   "34": false,
+//   "33": false,
+//   "32": false,
+//   "31": false,
+//   "41": false,
+//   "42": false,
+//   "43": false,
+//   "44": false,
+//   "45": false,
+//   "46": false,
+//   "47": false,
+//   "48": false,
+// }
+
 export const toothData = [
-  {
+ {
     toothNumber: "18b",
     xCoords: [295, 313.5, 332],
     xinterCoords: [332, 346],
     absenceLine: { left: 301.55, top: 488.55 },
-    status: teethStatus[18],
+    implantLayout: { left: 279, top: 466, width: 60, height: 137 },
+    teethStatus: teethStatus[18]
   },
   {
-    toothNumber: "17b",
+    toothNumber: "17b", 
     xCoords: [346, 366, 386],
     xinterCoords: [386, 397],
     absenceLine: { left: 361.45, top: 478.55 },
-    teethStatus: teethStatus[17],
+    implantLayout: { left: 339, top: 466, width: 54, height: 137 },
+    teethStatus: teethStatus[17]
   },
   {
     toothNumber: "16b",
-    xCoords: [397, 424, 451],
+    xCoords: [397, 424, 451], 
     xinterCoords: [451, 463],
     absenceLine: { left: 417.95, top: 478.55 },
-    teethStatus: teethStatus[16],
+    implantLayout: { left: 393, top: 466, width: 62, height: 137 },
+    teethStatus: teethStatus[16]
   },
   {
     toothNumber: "15b",
     xCoords: [463, 476, 489],
-    xinterCoords: [489, 504],
+    xinterCoords: [489, 504], 
     absenceLine: { left: 472.45, top: 478.55 },
-    teethStatus: teethStatus[15],
+    implantLayout: { left: 454.95, top: 466, width: 41, height: 137 },
+    teethStatus: teethStatus[15]
   },
   {
     toothNumber: "14b",
     xCoords: [504, 516, 528],
     xinterCoords: [528, 544],
     absenceLine: { left: 513.45, top: 478.55 },
-    teethStatus: teethStatus[14],
+    implantLayout: { left: 495.95, top: 466, width: 43, height: 137 },
+    teethStatus: teethStatus[14]
   },
   {
     toothNumber: "13b",
     xCoords: [544, 557, 570],
     xinterCoords: [570, 588],
     absenceLine: { left: 553.95, top: 478.55 },
-    teethStatus: teethStatus[13],
+    implantLayout: { left: 539, top: 466, width: 42, height: 137 },
+    teethStatus: teethStatus[13]
   },
   {
     toothNumber: "12b",
     xCoords: [588, 600, 612],
     xinterCoords: [612, 628],
     absenceLine: { left: 597.95, top: 478.55 },
-    teethStatus: teethStatus[12],
+    implantLayout: { left: 581, top: 466, width: 37, height: 137 },
+    teethStatus: teethStatus[12]
   },
   {
-    toothNumber: "11b",
+    toothNumber: "11b", 
     xCoords: [628, 644, 660],
     xinterCoords: [0, 0],
     absenceLine: { left: 638.95, top: 488.55 },
-    teethStatus: teethStatus[11],
+    implantLayout: { left: 618, top: 466, width: 62, height: 137 },
+    teethStatus: teethStatus[11]
   },
-  {
+   {
     toothNumber: "28b",
     xCoords: [1063, 1044.5, 1026],
     xinterCoords: [1026, 1011],
     absenceLine: { left: 1044.4, top: 478.55 },
+    implantLayout: { left: 1020, top: 466, width: 60, height: 137 }
   },
   {
     toothNumber: "27b",
     xCoords: [1011, 991.5, 972],
     xinterCoords: [972, 961],
     absenceLine: { left: 987.9, top: 478.55 },
+    implantLayout: { left: 965, top: 466, width: 55, height: 137 }
   },
   {
     toothNumber: "26b",
     xCoords: [961, 934, 907],
     xinterCoords: [907, 895],
     absenceLine: { left: 931.45, top: 478.55 },
+    implantLayout: { left: 903, top: 466, width: 62, height: 137 }
   },
   {
     toothNumber: "25b",
     xCoords: [895, 882, 869],
     xinterCoords: [869, 855],
     absenceLine: { left: 873.45, top: 478.55 },
+    implantLayout: { left: 863, top: 466, width: 40, height: 137 }
   },
   {
     toothNumber: "24b",
     xCoords: [855, 842, 829],
     xinterCoords: [829, 815],
     absenceLine: { left: 832.45, top: 478.55 },
+    implantLayout: { left: 820, top: 466, width: 43, height: 137 }
   },
   {
     toothNumber: "23b",
     xCoords: [815, 801, 787],
     xinterCoords: [787, 770],
     absenceLine: { left: 792.95, top: 478.55 },
+    implantLayout: { left: 778, top: 417, width: 42, height: 237 }
   },
   {
     toothNumber: "22b",
     xCoords: [770, 758, 746],
     xinterCoords: [746, 729],
     absenceLine: { left: 749.45, top: 478.55 },
+    implantLayout: { left: 741, top: 466, width: 37, height: 137 }
   },
   {
     toothNumber: "21b",
     xCoords: [729, 713.5, 698],
     xinterCoords: [0, 0],
     absenceLine: { left: 703.45, top: 488.55 },
+    implantLayout: { left: 680, top: 466, width: 61, height: 137 }
   },
-  {
+   {
     toothNumber: "18p",
     xCoords: [295, 313.5, 332],
     xinterCoords: [332, 346],
     absenceLine: { left: 295.45, top: 642.25 },
-    status: teethStatus[18],
+    implantLayout: { left: 279, top: 687, width: 60, height: 119 },
+    status: teethStatus[18]
   },
   {
     toothNumber: "17p",
     xCoords: [346, 366, 386],
     xinterCoords: [386, 397],
     absenceLine: { left: 351.45, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 339, top: 687, width: 54, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "16p",
     xCoords: [397, 424, 451],
     xinterCoords: [451, 463],
     absenceLine: { left: 414.45, top: 642.25 },
-    status: teethStatus[16],
+    implantLayout: { left: 393, top: 687, width: 62, height: 137 },
+    status: teethStatus[16]
   },
   {
     toothNumber: "15p",
     xCoords: [463, 476, 489],
     xinterCoords: [489, 504],
     absenceLine: { left: 464.95, top: 642.25 },
-    status: teethStatus[15],
+    implantLayout: { left: 454.95, top: 687, width: 41, height: 137 },
+    status: teethStatus[15]
   },
   {
     toothNumber: "14p",
     xCoords: [504, 516, 528],
     xinterCoords: [528, 544],
     absenceLine: { left: 507.45, top: 642.25 },
-    status: teethStatus[14],
+    implantLayout: { left: 495.95, top: 687, width: 43, height: 137 },
+    status: teethStatus[14]
   },
   {
     toothNumber: "13p",
     xCoords: [544, 557, 570],
     xinterCoords: [570, 588],
     absenceLine: { left: 549.95, top: 642.25 },
-    status: teethStatus[13],
+    implantLayout: { left: 539, top: 687, width: 42, height: 137 },
+    status: teethStatus[13]
   },
   {
     toothNumber: "12p",
     xCoords: [588, 600, 612],
     xinterCoords: [612, 628],
     absenceLine: { left: 589.45, top: 642.25 },
-    status: teethStatus[12],
+    implantLayout: { left: 580.95, top: 687, width: 37, height: 137 },
+    status: teethStatus[12]
   },
   {
     toothNumber: "11p",
     xCoords: [628, 644, 660],
     xinterCoords: [0, 0],
     absenceLine: { left: 633.95, top: 642.25 },
-    status: teethStatus[11],
+    implantLayout: { left: 618, top: 687, width: 62, height: 119 },
+    status: teethStatus[11]
   },
-  {
+   {
     toothNumber: "28p",
     xCoords: [1063, 1044.5, 1026],
     xinterCoords: [1026, 1011],
     absenceLine: { left: 1039.9, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 1020, top: 687, width: 60, height: 119 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "27p",
     xCoords: [1011, 991.5, 972],
     xinterCoords: [972, 961],
     absenceLine: { left: 983.4, top: 645.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 965, top: 687, width: 55, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "26p",
     xCoords: [961, 934, 907],
     xinterCoords: [907, 895],
     absenceLine: { left: 926.95, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 903, top: 687, width: 62, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "25p",
     xCoords: [895, 882, 869],
     xinterCoords: [869, 855],
     absenceLine: { left: 869.95, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 863, top: 687, width: 40, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "24p",
     xCoords: [855, 842, 829],
     xinterCoords: [829, 815],
     absenceLine: { left: 828.95, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 820, top: 687, width: 43, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "23p",
     xCoords: [815, 801, 787],
     xinterCoords: [787, 770],
     absenceLine: { left: 789.45, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 778, top: 687, width: 42, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "22p",
     xCoords: [770, 758, 746],
     xinterCoords: [746, 729],
     absenceLine: { left: 740.95, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 741, top: 687, width: 37, height: 137 },
+    status: teethStatus[17]
   },
   {
     toothNumber: "21p",
     xCoords: [729, 713.5, 698],
     xinterCoords: [0, 0],
     absenceLine: { left: 698.45, top: 642.25 },
-    status: teethStatus[17],
+    implantLayout: { left: 680, top: 687, width: 61, height: 119 },
+    status: teethStatus[17]
   },
-  { toothNumber: "48b", xCoords: [296, 319, 342], xinterCoords: [342, 358], absenceLine: { left: 307.65, top: 1257.55 } },
-  { toothNumber: "47b", xCoords: [358, 382, 406], xinterCoords: [406, 422], absenceLine: { left: 372.65, top: 1257.55 } },
-  { toothNumber: "46b", xCoords: [422, 445.5, 469], xinterCoords: [469, 492], absenceLine: { left: 434.65, top: 1257.55 } },
-  { toothNumber: "45b", xCoords: [492, 502.5, 513], xinterCoords: [513, 533], absenceLine: { left: 492.15, top: 1257.55 } },
-  { toothNumber: "44b", xCoords: [533, 543, 553], xinterCoords: [553, 570], absenceLine: { left: 533.65, top: 1257.55 } },
-  { toothNumber: "43b", xCoords: [570, 581, 592], xinterCoords: [592, 610], absenceLine: { left: 574.15, top: 1257.55 } },
-  { toothNumber: "42b", xCoords: [610, 619.5, 629], xinterCoords: [629, 643], absenceLine: { left: 611.65, top: 1257.55 } },
-  { toothNumber: "41b", xCoords: [643, 652.5, 662], xinterCoords: [0, 0], absenceLine: { left: 644.15, top: 1257.55 } },
-  { toothNumber: "48l", xCoords: [296, 319, 342], xinterCoords: [342, 358], absenceLine: { left: 312.15, top: 1092.1 } },
-  { toothNumber: "47l", xCoords: [358, 382, 406], xinterCoords: [406, 422], absenceLine: { left: 378.65, top: 1092.1 } },
-  { toothNumber: "46l", xCoords: [422, 445.5, 469], xinterCoords: [469, 492], absenceLine: { left: 437.15, top: 1092.1 } },
-  { toothNumber: "45l", xCoords: [492, 502.5, 513], xinterCoords: [513, 533], absenceLine: { left: 490.65, top: 1092.1 } },
-  { toothNumber: "44l", xCoords: [533, 543, 553], xinterCoords: [553, 570], absenceLine: { left: 534.65, top: 1092.1 } },
-  { toothNumber: "43l", xCoords: [570, 581, 592], xinterCoords: [592, 610], absenceLine: { left: 574.15, top: 1092.1 } },
-  { toothNumber: "42l", xCoords: [610, 619.5, 629], xinterCoords: [629, 643], absenceLine: { left: 610.15, top: 1092.1 } },
-  { toothNumber: "41l", xCoords: [643, 652.5, 662], xinterCoords: [0, 0], absenceLine: { left: 643.15, top: 1092.1 } },
-  { toothNumber: "38b", xCoords: [1061, 1038.5, 1016], xinterCoords: [1016, 999], absenceLine: { left: 1035.1, top: 1257.55 } },
-  { toothNumber: "37b", xCoords: [999, 975.5, 952], xinterCoords: [952, 936], absenceLine: { left: 964.6, top: 1257.55 } },
-  { toothNumber: "36b", xCoords: [936, 911.5, 887], xinterCoords: [887, 864], absenceLine: { left: 901.15, top: 1257.55 } },
-  { toothNumber: "35b", xCoords: [864, 854.5, 845], xinterCoords: [845, 824], absenceLine: { left: 845.15, top: 1257.55 } },
-  { toothNumber: "34b", xCoords: [824, 814.5, 805], xinterCoords: [805, 787], absenceLine: { left: 805.15, top: 1257.55 } },
-  { toothNumber: "33b", xCoords: [787, 776.5, 766], xinterCoords: [766, 748], absenceLine: { left: 766.65, top: 1257.55 } },
-  { toothNumber: "32b", xCoords: [748, 738, 728], xinterCoords: [728, 714], absenceLine: { left: 728.15, top: 1257.55 } },
-  { toothNumber: "31b", xCoords: [714, 704.5, 695], xinterCoords: [0, 0], absenceLine: { left: 692.65, top: 1257.55 } },
-  { toothNumber: "38l", xCoords: [1061, 1038.5, 1016], xinterCoords: [1016, 999], absenceLine: { left: 1030.6, top: 1092.1 } },
-  { toothNumber: "37l", xCoords: [999, 975.5, 952], xinterCoords: [952, 936], absenceLine: { left: 965.1, top: 1092.1 } },
-  { toothNumber: "36l", xCoords: [936, 911.5, 887], xinterCoords: [887, 864], absenceLine: { left: 905.65, top: 1092.1 } },
-  { toothNumber: "35l", xCoords: [864, 854.5, 845], xinterCoords: [845, 824], absenceLine: { left: 846.65, top: 1092.1 } },
-  { toothNumber: "34l", xCoords: [824, 814.5, 805], xinterCoords: [805, 787], absenceLine: { left: 802.65, top: 1092.1 } },
-  { toothNumber: "33l", xCoords: [787, 776.5, 766], xinterCoords: [766, 748], absenceLine: { left: 769.15, top: 1092.1 } },
-  { toothNumber: "32l", xCoords: [748, 738, 728], xinterCoords: [728, 714], absenceLine: { left: 731.65, top: 1092.1 } },
-  { toothNumber: "31l", xCoords: [714, 704.5, 695], xinterCoords: [0, 0], absenceLine: { left: 697.65, top: 1092.1 } },
+{
+    toothNumber: "48b",
+    xCoords: [296, 319, 342],
+    xinterCoords: [342, 358],
+    absenceLine: { left: 307.65, top: 1257.55 },
+    implantLayout: { left: 287, top: 1295, width: 64, height: 131 }
+  },
+  {
+    toothNumber: "47b",
+    xCoords: [358, 382, 406],
+    xinterCoords: [406, 422],
+    absenceLine: { left: 372.65, top: 1257.55 },
+    implantLayout: { left: 351, top: 1295, width: 62, height: 131 }
+  },
+  {
+    toothNumber: "46b",
+    xCoords: [422, 445.5, 469],
+    xinterCoords: [469, 492],
+    absenceLine: { left: 434.65, top: 1257.55 },
+    implantLayout: { left: 413, top: 1295, width: 67, height: 131 }
+  },
+  {
+    toothNumber: "45b",
+    xCoords: [492, 502.5, 513],
+    xinterCoords: [513, 533],
+    absenceLine: { left: 492.15, top: 1257.55 },
+    implantLayout: { left: 480, top: 1295, width: 43, height: 131 }
+  },
+  {
+    toothNumber: "44b",
+    xCoords: [533, 543, 553],
+    xinterCoords: [553, 570],
+    absenceLine: { left: 533.65, top: 1257.55 },
+    implantLayout: { left: 523, top: 1295, width: 37, height: 131 }
+  },
+  {
+    toothNumber: "43b",
+    xCoords: [570, 581, 592],
+    xinterCoords: [592, 610],
+    absenceLine: { left: 574.15, top: 1257.55 },
+    implantLayout: { left: 560, top: 1295, width: 39, height: 131 }
+  },
+  {
+    toothNumber: "42b",
+    xCoords: [610, 619.5, 629],
+    xinterCoords: [629, 643],
+    absenceLine: { left: 611.65, top: 1257.55 },
+    implantLayout: { left: 599, top: 1295, width: 38, height: 131 }
+  },
+  {
+    toothNumber: "41b",
+    xCoords: [643, 652.5, 662],
+    xinterCoords: [0, 0],
+    absenceLine: { left: 644.15, top: 1257.55 },
+    implantLayout: { left: 637, top: 1295, width: 43, height: 131 }
+  },
+
+  // Fourth quadrant lingual
+  {
+    toothNumber: "48l",
+    xCoords: [296, 319, 342],
+    xinterCoords: [342, 358],
+    absenceLine: { left: 312.15, top: 1092.1 },
+    implantLayout: { left: 287, top: 1073, width: 68, height: 133 }
+  },
+  {
+    toothNumber: "47l",
+    xCoords: [358, 382, 406],
+    xinterCoords: [406, 422],
+    absenceLine: { left: 378.65, top: 1092.1 },
+    implantLayout: { left: 355, top: 1073, width: 63, height: 133 }
+  },
+  {
+    toothNumber: "46l",
+    xCoords: [422, 445.5, 469],
+    xinterCoords: [469, 492],
+    absenceLine: { left: 437.15, top: 1092.1 },
+    implantLayout: { left: 418, top: 1073, width: 62, height: 133 }
+  },
+  {
+    toothNumber: "45l",
+    xCoords: [492, 502.5, 513],
+    xinterCoords: [513, 533],
+    absenceLine: { left: 490.65, top: 1092.1 },
+    implantLayout: { left: 480, top: 1073, width: 43, height: 133 }
+  },
+  {
+    toothNumber: "44l",
+    xCoords: [533, 543, 553],
+    xinterCoords: [553, 570],
+    absenceLine: { left: 534.65, top: 1092.1 },
+    implantLayout: { left: 523, top: 1073, width: 40, height: 133 }
+  },
+  {
+    toothNumber: "43l",
+    xCoords: [570, 581, 592],
+    xinterCoords: [592, 610],
+    absenceLine: { left: 574.15, top: 1092.1 },
+    implantLayout: { left: 563, top: 1073, width: 36, height: 133 }
+  },
+  {
+    toothNumber: "42l",
+    xCoords: [610, 619.5, 629],
+    xinterCoords: [629, 643],
+    absenceLine: { left: 610.15, top: 1092.1 },
+    implantLayout: { left: 599, top: 1073, width: 35, height: 133 }
+  },
+  {
+    toothNumber: "41l",
+    xCoords: [643, 652.5, 662],
+    xinterCoords: [0, 0],
+    absenceLine: { left: 643.15, top: 1092.1 },
+    implantLayout: { left: 634, top: 1073, width: 46, height: 133 }
+  },
+
+  // Third quadrant (31-38)
+  {
+    toothNumber: "38b",
+    xCoords: [1061, 1038.5, 1016],
+    xinterCoords: [1016, 999],
+    absenceLine: { left: 1035.1, top: 1257.55 },
+    implantLayout: { left: 1008, top: 1295, width: 80, height: 138 }
+  },
+  {
+    toothNumber: "37b",
+    xCoords: [999, 975.5, 952],
+    xinterCoords: [952, 936],
+    absenceLine: { left: 964.6, top: 1257.55 },
+    implantLayout: { left: 946, top: 1295, width: 62, height: 137 }
+  },
+  {
+    toothNumber: "36b",
+    xCoords: [936, 911.5, 887],
+    xinterCoords: [887, 864],
+    absenceLine: { left: 901.15, top: 1257.55 },
+    implantLayout: { left: 879, top: 1295, width: 67, height: 131 }
+  },
+  {
+    toothNumber: "35b",
+    xCoords: [864, 854.5, 845],
+    xinterCoords: [845, 824],
+    absenceLine: { left: 845.15, top: 1257.55 },
+    implantLayout: { left: 836, top: 1295, width: 43, height: 131 }
+  },
+  {
+    toothNumber: "34b",
+    xCoords: [824, 814.5, 805],
+    xinterCoords: [805, 787],
+    absenceLine: { left: 805.15, top: 1257.55 },
+    implantLayout: { left: 798, top: 1295, width: 38, height: 131 }
+  },
+  {
+    toothNumber: "33b",
+    xCoords: [787, 776.5, 766],
+    xinterCoords: [766, 748],
+    absenceLine: { left: 766.65, top: 1257.55 },
+    implantLayout: { left: 759, top: 1295, width: 39, height: 133 }
+  },
+  {
+    toothNumber: "32b",
+    xCoords: [748, 738, 728],
+    xinterCoords: [728, 714],
+    absenceLine: { left: 728.15, top: 1257.55 },
+    implantLayout: { left: 722, top: 1295, width: 38, height: 132 }
+  },
+  {
+    toothNumber: "31b",
+    xCoords: [714, 704.5, 695],
+    xinterCoords: [0, 0],
+    absenceLine: { left: 692.65, top: 1257.55 },
+    implantLayout: { left: 680, top: 1295, width: 42, height: 131 }
+  },
+
+  // Third quadrant lingual
+  {
+    toothNumber: "38l",
+    xCoords: [1061, 1038.5, 1016],
+    xinterCoords: [1016, 999],
+    absenceLine: { left: 1030.6, top: 1092.1 },
+    implantLayout: { left: 1004, top: 1073, width: 84, height: 133 }
+  },
+  {
+    toothNumber: "37l",
+    xCoords: [999, 975.5, 952],
+    xinterCoords: [952, 936],
+    absenceLine: { left: 965.1, top: 1092.1 },
+    implantLayout: { left: 941, top: 1073, width: 63, height: 133 }
+  },
+  {
+    toothNumber: "36l",
+    xCoords: [936, 911.5, 887],
+    xinterCoords: [887, 864],
+    absenceLine: { left: 905.65, top: 1092.1 },
+    implantLayout: { left: 880, top: 1073, width: 61, height: 133 }
+  },
+  {
+    toothNumber: "35l",
+    xCoords: [864, 854.5, 845],
+    xinterCoords: [845, 824],
+    absenceLine: { left: 846.65, top: 1092.1 },
+    implantLayout: { left: 836, top: 1073, width: 44, height: 133 }
+  },
+  {
+    toothNumber: "34l",
+    xCoords: [824, 814.5, 805],
+    xinterCoords: [805, 787],
+    absenceLine: { left: 802.65, top: 1092.1 },
+    implantLayout: { left: 796, top: 1073, width: 40, height: 133 }
+  },
+  {
+    toothNumber: "33l",
+    xCoords: [787, 776.5, 766],
+    xinterCoords: [766, 748],
+    absenceLine: { left: 769.15, top: 1092.1 },
+    implantLayout: { left: 759, top: 1073, width: 37, height: 133 }
+  },
+  {
+    toothNumber: "32l",
+    xCoords: [748, 738, 728],
+    xinterCoords: [728, 714],
+    absenceLine: { left: 731.65, top: 1092.1 },
+    implantLayout: { left: 724, top: 1073, width: 35, height: 133 }
+  },
+  {
+    toothNumber: "31l",
+    xCoords: [714, 704.5, 695],
+    xinterCoords: [0, 0],
+    absenceLine: { left: 697.65, top: 1092.1 },
+    implantLayout: { left: 680, top: 1073, width: 44, height: 133 }
+  },
 ];
 
 export enum Mode {
