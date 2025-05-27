@@ -3,12 +3,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import ToothComponent from "@/components/ToothComponent";
-import { Kodchasan } from "next/font/google";
 import RecordingButton from "@/components/RecordingButton";
 import Periovectors from "@/components/Periovectors";
 import { Quadrants, toothData } from "@/components/utils/utils";
 import SaveAsImageButton from "@/components/SaveAsImageButton"; // Import the button
 import LineAbsence from "@/components/LineAbsence";
+import ImplantImage from "@/components/ImplantImage";
 
 export default function Page() {
   const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -62,6 +62,12 @@ export default function Page() {
             if (data.mobility) {
               setValue(`${data.toothNumber}.mobility`, data.mobility);
             }
+            if (data.furcation) {
+              setValue(`${data.toothNumber}.furcation`, data.furcation);
+            }
+            if (data.implant) {
+              setValue(`${data.toothNumber}.implant.0`, data.implant);
+            }
           });
         } else {
           console.error("Expected an array but received something else");
@@ -77,7 +83,8 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
+      {/* Recording Button */}
       <div className="fixed top-[0px] left-[50%] flex z-50">
         <RecordingButton
           setAudioURL={setAudioURL}
@@ -87,10 +94,13 @@ export default function Page() {
         />
         <SaveAsImageButton formRef={formRef} />
       </div>
-      <div ref={formRef} className="  mx-auto w-[1200px] h-[1600px]">
-        <div className="relative" style={{ paddingTop: "133.33%" }}>
-          {" "}
-          {/* 1600/1200 = 1.3333 for aspect ratio */}
+
+      {/*BODY  */}
+      <div ref={formRef} className="mx-auto w-[1200px] h-[1600px]">
+        <div
+          className="relative w-[1200px] h-[1600px]"
+          style={{ paddingTop: "133.33%" }}
+        >
           <div
             id="chart"
             className="absolute top-0 left-0 w-full h-full origin-top-left"
@@ -100,12 +110,47 @@ export default function Page() {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="absolute top-0 left-0 w-full h-full origin-top-left z-40 "
               >
-                <button
+                {/* Base layers */}
+                <div className="absolute w-full h-full z-20 top-0 left-0">
+                  <img
+                    src="/grid/chart-grid-box.svg"
+                    alt="grid"
+                    className="w-full h-full"
+                  />
+                </div>
+
+                {/* Implant Images */}
+                <div className="absolute z-[15]">
+                  {toothData.map((data, index) => (
+                    <ImplantImage key={index} toothNumber={data.toothNumber} />
+                  ))}
+                </div>
+
+                {/* SVG Teeth layer */}
+                <div className="absolute w-full h-full z-10 top-0 left-0">
+                  <img src="/grid/svg_teeth.svg" className="w-full h-full" />
+                </div>
+
+                {/* LineAbsence - Move this above other interactive components */}
+                <div className="absolute z-[45] md:scale-100 transform scale-100 mx-auto">
+                  {toothData.map((data, index) =>
+                    data?.absenceLine ? (
+                      <div key={index} className="w-5">
+                        <LineAbsence
+                          key={index}
+                          toothNumber={data.toothNumber}
+                        />{" "}
+                      </div>
+                    ) : null
+                  )}
+                </div>
+
+                {/* <button
                   className="z-50 hover:cursor-pointer bg-blue-500 text-white p-2 rounded-md bottom-10 right-4 absolute left-0 top-0 w-40 h-20"
                   type="submit"
                 >
                   Submit
-                </button>
+                </button> */}
                 <div className=" w-full mx-auto ">
                   <svg className="absolute z-30 left-0 top-0 w-[1200px] h-[1600px] ">
                     {[
@@ -237,16 +282,6 @@ export default function Page() {
                       />
                     ))}
                   </svg>
-                  <div className="md:scale-100 z-30 transform scale-100 mx-auto">
-                    {toothData.map((data, index) =>
-                      data?.absenceLine ? (
-                        <LineAbsence
-                          key={index}
-                          toothNumber={data.toothNumber}
-                        />
-                      ) : null
-                    )}
-                  </div>
 
                   {/* Teeth Components */}
                   <div className="absolute z-40">
@@ -288,7 +323,7 @@ export default function Page() {
                     </div>
 
                     <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[805px]">
-                        {[
+                      {[
                         "18p",
                         "17p",
                         "16p",
@@ -297,23 +332,29 @@ export default function Page() {
                         "13p",
                         "12p",
                         "11p",
-                        ].map((tooth) => (
+                      ].map((tooth) => (
                         <ToothComponent
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q1P}
                           sections={{
-                          mobility: false,
-                          implant: false, // Hide implant section
-                          furcation: true,
-                          bleeding: true,
-                          plaque: true, // Hide plaque section
-                          margin: true,
-                          depth: true,
+                            mobility: false,
+                            implant: false, // Hide implant section
+                            furcation: true,
+                            bleeding: true,
+                            plaque: true, // Hide plaque section
+                            margin: true,
+                            depth: true,
                           }}
-                          sectionOrder={["furcation", "bleeding", "plaque", "depth", "margin"]}
+                          sectionOrder={[
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "depth",
+                            "margin",
+                          ]}
                         />
-                        ))}
+                      ))}
                     </div>
 
                     <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[805px]">
@@ -340,7 +381,13 @@ export default function Page() {
                             margin: true,
                             depth: true,
                           }}
-                          sectionOrder={["furcation", "bleeding", "plaque", "depth", "margin"]}
+                          sectionOrder={[
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "depth",
+                            "margin",
+                          ]}
                         />
                       ))}
                     </div>
@@ -360,7 +407,15 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q3B}
-                          sectionOrder={["mobility", "implant","furcation", "bleeding", "plaque", "depth", "margin"]}
+                          sectionOrder={[
+                            "mobility",
+                            "implant",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "depth",
+                            "margin",
+                          ]}
                         />
                       ))}
                     </div>
@@ -408,7 +463,15 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q4B}
-                          sectionOrder={["mobility", "implant","furcation", "bleeding", "plaque", "depth", "margin"]}
+                          sectionOrder={[
+                            "mobility",
+                            "implant",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "depth",
+                            "margin",
+                          ]}
                         />
                       ))}
                     </div>
@@ -444,17 +507,6 @@ export default function Page() {
                 </div>
               </form>
             </FormProvider>
-            <div className="absolute w-full h-full z-20 top-0 left-0">
-              <img
-                src="/grid/chart-grid-box.svg"
-                alt="grid"
-                className="w-full h-full"
-              />
-            </div>
-
-            <div className="absolute w-full h-full z-10 top-0 left-0">
-              <img src="/grid/svg_teeth.svg" className="w-full h-full" />
-            </div>
           </div>
         </div>
       </div>
