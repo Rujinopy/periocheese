@@ -60,7 +60,7 @@ export default function Page() {
             }
 
             if (data.mobility) {
-              setValue(`${data.toothNumber}.mobility`, data.mobility);
+              setValue(`${data.toothNumber}.mobility.0`, data.mobility);
             }
             if (data.furcation) {
               setValue(`${data.toothNumber}.furcation`, data.furcation);
@@ -145,12 +145,12 @@ export default function Page() {
                   )}
                 </div>
 
-                {/* <button
+                <button
                   className="z-50 hover:cursor-pointer bg-blue-500 text-white p-2 rounded-md bottom-10 right-4 absolute left-0 top-0 w-40 h-20"
                   type="submit"
                 >
                   Submit
-                </button> */}
+                </button>
                 <div className=" w-full mx-auto ">
                   <svg className="absolute z-30 left-0 top-0 w-[1200px] h-[1600px] ">
                     {[
