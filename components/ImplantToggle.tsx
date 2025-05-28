@@ -15,24 +15,30 @@ const ImplantToggle: React.FC<ImplantToggleProps> = ({
   defaultValue = 0,
   disabled = false,
 }) => {
-  const { control, setValue, watch, getValues } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   const handleToggle = (field: any) => {
-  const newValue = field.value === 1 ? 0 : 1;
-  field.onChange(newValue);
+    const newValue = field.value === 1 ? 0 : 1;
+    field.onChange(newValue);
 
-  // Get the base number (first two chars, e.g. "11" from "11b.implant.0")
-  const baseNumber = name.slice(0, 2);
-  // Possible suffixes for tooth positions
-  const suffixes = ["b", "l", "p"];
-
-  suffixes.forEach((suffix) => {
-    const fieldName = `${baseNumber}${suffix}.implant.0`;
-    if (fieldName !== name) {
-      setValue(fieldName, newValue);
+    // Get the base number (first two chars, e.g. "11" from "11b.implant.0")
+    const baseNumber = name.slice(0, 2);
+    // Determine suffixes based on the first digit
+    const firstDigit = baseNumber[0];
+    let suffixes: string[] = [];
+    if (firstDigit === "1" || firstDigit === "2") {
+      suffixes = ["b", "p"];
+    } else if (firstDigit === "3" || firstDigit === "4") {
+      suffixes = ["b", "l"];
     }
-  });
-};
+
+    suffixes.forEach((suffix) => {
+      const fieldName = `${baseNumber}${suffix}.implant.0`;
+      if (fieldName !== name) {
+        setValue(fieldName, newValue);
+      }
+    });
+  };
 
   return (
     <Controller
