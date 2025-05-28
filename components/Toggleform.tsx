@@ -34,7 +34,7 @@ const Toggleform: React.FC<ToggleButtonProps> = ({ name, defaultValue = 0, onCol
       render={({ field }) => (
         <input
           type="button"
-          disabled={disabled} // <-- add this line
+          disabled={disabled}
           className={`w-full text-center ${field.value === 1 ? onColor : offColor} ${disabled ? null : "hover:cursor-pointer" }`}
           onClick={() => handleToggle(field)}
         />
