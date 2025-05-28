@@ -1,7 +1,7 @@
 'use client';
 
-import React from "react";
-import { useFormContext, Controller } from "react-hook-form";
+import React, { useCallback } from "react";
+import { useFormContext, Controller, useWatch } from "react-hook-form";
 import Toggleform from "./Toggleform";
 import { Quadrants } from "./utils/utils";
 import ImplantToggle from "./ImplantToggle";
@@ -53,49 +53,45 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
   ],
 }) => {
   const { control, setValue, watch } = useFormContext();
-  const allTeeth = watch(); // Watch all fields
+  const allTeeth = useWatch(); // More efficient than watch() for all fields
 
-  const handleToggleBlankFields = () => {
-  const baseNumber = toothNumber.slice(0, -1);
-  const suffixes = ["b", "l", "p"];
-  // Get the current status from the clicked tooth
-  const currentStatus = watch(`${toothNumber}.status`) || "present";
-  const newStatus = currentStatus === "present" ? "absent" : "present";
+  const isAbsent = (tooth: string) =>
+    allTeeth?.[tooth]?.status === "absent";
 
-  suffixes.forEach((suffix) => {
-    setValue(`${baseNumber}${suffix}.status`, newStatus);
-  });
-};
+  const handleToggleBlankFields = useCallback(() => {
+    const baseNumber = toothNumber.slice(0, -1);
+    const suffixes = ["b", "l", "p"];
+    const currentStatus = watch(`${toothNumber}.status`) || "present";
+    const newStatus = currentStatus === "present" ? "absent" : "present";
+    suffixes.forEach((suffix) => {
+      setValue(`${baseNumber}${suffix}.status`, newStatus);
+    });
+  }, [setValue, toothNumber, watch]);
 
   const renderSection = (sectionName: string) => {
     switch (sectionName) {
       case "mobility":
         return (
           sections.mobility && (
-            <div className="flex items-center justify-center border-black w-[47px]">
-              {[0].map((index) => (
-                <Controller
-                  key={index}
-                  name={`${toothNumber}.mobility.${index}`}
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <select
-                      {...field}
-                      className={`text-center flex justify-center items-center p-0 w-[47px] m-0 ${
-                        allTeeth[toothNumber]?.status === "absent"
-                          ? "bg-white text-white"
-                          : ""
-                      }`}
-                    >
-                      <option value="">-</option>
-                      <option value={"1"}>I</option>
-                      <option value={"2"}>II</option>
-                      <option value={"3"}>III</option>
-                    </select>
-                  )}
-                />
-              ))}
+            <div className={`flex items-center justify-center border-black ${parseInt(toothNumber.slice(0,1)) >= 3 ? "border-t-2" : null }  w-[47px]`}>
+              <Controller
+                name={`${toothNumber}.mobility.0`}
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <select
+                    {...field}
+                    className={`text-center flex justify-center items-center p-0 w-[47px] m-0 ${
+                      isAbsent(toothNumber) ? "bg-white text-white" : ""
+                    }`}
+                  >
+                    <option value="">-</option>
+                    <option value={"1"}>I</option>
+                    <option value={"2"}>II</option>
+                    <option value={"3"}>III</option>
+                  </select>
+                )}
+              />
             </div>
           )
         );
@@ -103,13 +99,10 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
         return (
           sections.implant && (
             <div className="flex w-[47px] h-[16px]">
-              {[0].map((index) => (
-                <ImplantToggle
-                  key={index}
-                  name={`${toothNumber}.implant.${index}`}
-                  disabled={allTeeth[toothNumber]?.status === "absent"}
-                />
-              ))}
+              <ImplantToggle
+                name={`${toothNumber}.implant.0`}
+                disabled={isAbsent(toothNumber)}
+              />
             </div>
           )
         );
@@ -117,27 +110,17 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
         return (
           sections.furcation && (
             <div className="flex divide-x-2 divide-black w-[47px] border-t border-black">
-              {[0].map((index) =>
-                toothNumber.slice(1, 2).endsWith("6") ||
-                toothNumber.slice(1, 2).endsWith("7") ||
-                toothNumber.slice(1, 2).endsWith("8") ? (
-                  <Toggleform
-                    key={index}
-                    name={`${toothNumber}.furcation.${index}`}
-                    onColor={
-                      allTeeth[toothNumber]?.status === "absent"
-                        ? "bg-white"
-                        : "bg-green-500"
-                    }
-                  />
-                ) : (
-                  <input
-                    key={index}
-                    type="button"
-                    className={`w-full text-center bg-black`}
-                    disabled
-                  />
-                )
+              {["6", "7", "8"].includes(toothNumber.slice(1, 2)) ? (
+                <Toggleform
+                  name={`${toothNumber}.furcation.0`}
+                  onColor={isAbsent(toothNumber) ? "bg-white" : "bg-green-500"}
+                />
+              ) : (
+                <input
+                  type="button"
+                  className="w-full text-center bg-black"
+                  disabled
+                />
               )}
             </div>
           )
@@ -148,13 +131,11 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
             <div className="flex divide-x-2 divide-black justify-between w-[47px]">
               {[0, 1, 2].map((index) => (
                 <Toggleform
-                  disabled={allTeeth[toothNumber]?.status === "absent"}
+                  disabled={isAbsent(toothNumber)}
                   key={index}
                   name={`${toothNumber}.bleeding.${index}`}
                   onColor={
-                    allTeeth[toothNumber]?.status === "absent"
-                      ? "bg-white"
-                      : "bg-red-400"
+                    isAbsent(toothNumber) ? "bg-white" : "bg-red-400"
                   }
                 />
               ))}
@@ -167,14 +148,12 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
             <div className="flex divide-x-2 divide-black w-[47px]">
               {[0, 1, 2].map((index) => (
                 <Toggleform
-                  disabled={allTeeth[toothNumber]?.status === "absent"}
+                  disabled={isAbsent(toothNumber)}
                   key={index}
                   name={`${toothNumber}.plaque.${index}`}
                   onColor={
-                    allTeeth[toothNumber]?.status === "absent"
-                      ? "bg-white"
-                      : "bg-yellow-400"
-                  } // Example color for plaque
+                    isAbsent(toothNumber) ? "bg-white" : "bg-yellow-400"
+                  }
                 />
               ))}
             </div>
@@ -198,9 +177,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                       type="number"
                       {...field}
                       className={`w-full text-center flex justify-center items-center py-1 ${
-                        allTeeth[toothNumber]?.status === "absent"
-                          ? "bg-white text-white"
-                          : ""
+                        isAbsent(toothNumber) ? "bg-white text-white" : ""
                       }`}
                     />
                   )}
@@ -228,9 +205,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                         type="number"
                         {...field}
                         className={`w-full text-center ${
-                          allTeeth[toothNumber]?.status === "absent"
-                            ? "bg-white text-white"
-                            : ""
+                          isAbsent(toothNumber) ? "bg-white text-white" : ""
                         }`}
                       />
                     )}
@@ -246,35 +221,31 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
   };
 
   return (
-    <div
-      className={`text-xs divide-y-2 divide-black w-[378/8 px] h-[162/8 px]`}
-    >
+    <div className="text-xs divide-y-2 divide-black w-[378/8 px] h-[162/8 px]">
       {quadrant.slice(2) !== "P" &&
-      quadrant.slice(2) !== "L" &&
-      (toothNumber.startsWith("1") || toothNumber.startsWith("2")) ? (
-        <Controller
-          name={`${toothNumber}.status`}
-          control={control}
-          defaultValue="present"
-          render={({ field }) => (
-            <h3
-              onClick={() => {
-                handleToggleBlankFields();
-                field.onChange(
-                  field.value === "present" ? "absent" : "present"
-                );
-              }}
-              className="py-1 text-center cursor-pointer"
-            >
-              {toothNumber.slice(0, -1)}
-            </h3>
-          )}
-        />
-      ) : null}
+        quadrant.slice(2) !== "L" &&
+        (toothNumber.startsWith("1") || toothNumber.startsWith("2")) && (
+          <Controller
+            name={`${toothNumber}.status`}
+            control={control}
+            defaultValue="present"
+            render={({ field }) => (
+              <h3
+                onClick={() => {
+                  handleToggleBlankFields();
+                  field.onChange(
+                    field.value === "present" ? "absent" : "present"
+                  );
+                }}
+                className="py-1 text-center cursor-pointer"
+              >
+                {toothNumber.slice(0, -1)}
+              </h3>
+            )}
+          />
+        )}
 
-      <div
-        className={`divide-y-2  divide-black flex ${getFlexClass(quadrant)}`}
-      >
+      <div className={`divide-y-2 divide-black flex ${getFlexClass(quadrant)}`}>
         {sectionOrder.map((section) => (
           <React.Fragment key={`${toothNumber}-${section}`}>
             {renderSection(section)}
@@ -283,27 +254,27 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
       </div>
 
       {quadrant.slice(2) !== "P" &&
-      quadrant.slice(2) !== "L" &&
-      (toothNumber.startsWith("3") || toothNumber.startsWith("4")) ? (
-        <Controller
-          name={`${toothNumber}.status`}
-          control={control}
-          defaultValue="present"
-          render={({ field }) => (
-            <h3
-              onClick={() => {
-                handleToggleBlankFields();
-                field.onChange(
-                  field.value === "present" ? "absent" : "present"
-                );
-              }}
-              className="py-1 text-center cursor-pointer"
-            >
-              {toothNumber.slice(0, -1)}
-            </h3>
-          )}
-        />
-      ) : null}
+        quadrant.slice(2) !== "L" &&
+        (toothNumber.startsWith("3") || toothNumber.startsWith("4")) && (
+          <Controller
+            name={`${toothNumber}.status`}
+            control={control}
+            defaultValue="present"
+            render={({ field }) => (
+              <h3
+                onClick={() => {
+                  handleToggleBlankFields();
+                  field.onChange(
+                    field.value === "present" ? "absent" : "present"
+                  );
+                }}
+                className="py-1 text-center cursor-pointer"
+              >
+                {toothNumber.slice(0, -1)}
+              </h3>
+            )}
+          />
+        )}
     </div>
   );
 };
