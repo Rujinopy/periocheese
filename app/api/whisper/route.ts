@@ -1,5 +1,4 @@
 // app/api/whisper/route.ts
-import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import fs from "fs";
 import path from "path";
@@ -21,20 +20,21 @@ export async function POST(req: Request) {
   }
 
   const buffer = Buffer.from(base64Audio, "base64");
-  const filePath = `/tmp/tmpinput-${randomUUID()}.wav`;
+  const filePath = path.join(process.cwd(), "tmp", `input-${randomUUID()}.webm`);
 
   const promptTemplatePath = path.join(process.cwd(), "public", "prompt", "prompt-template.txt");
   const promptTemplate = fs.readFileSync(promptTemplatePath, "utf-8");
-
+  console.log(filePath)
   try {
     fs.writeFileSync(filePath, new Uint8Array(buffer));
     const transcriptions = await openai.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: "whisper-1",
+      prompt: `Dental periodontal charting session. Listen for: tooth numbers (11-18, 21-28, 31-38, 41-48), pocket depth measurements, gingival margin values, bleeding on probing, plaque scores, mobility grades, implant status, furcation types. Terms include: PD, พีดี, GM, จีเอ็ม, BOP, bleeding, บรีดดิ่ง, plaque, พลาค, พลัค, พลักษ์, mobility, โมบิลิตี้, implant, อิมพลานต์, อิมพลานส์, furcation, เฟอเคชั่น, ฟูเคชัน, cut. Numbers spoken as sequences like "four five six" or Thai numerals.`
       
     });
 
-    console.log(transcriptions);
+    console.log("Transcriptions:", transcriptions);
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",

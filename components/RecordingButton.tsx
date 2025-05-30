@@ -24,17 +24,27 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
   const [mode, setMode] = useState<string | null>(null); 
   const audioChunksRef = useRef<Blob[]>([]);
 
-  const startRecording = async () => {
+   const startRecording = async () => {
     setRecording(true);
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
+    
+    // Check for supported MIME types
+    const mimeType = MediaRecorder.isTypeSupported('audio/mpeg')
+      ? 'audio/mpeg'
+      : MediaRecorder.isTypeSupported('audio/mp3')
+      ? 'audio/mp3'
+      : 'audio/webm';
+
+    const mediaRecorder = new MediaRecorder(stream, {
+      mimeType
+    });
 
     mediaRecorder.ondataavailable = (event) => {
       audioChunksRef.current.push(event.data);
     };
 
     mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+      const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
       const audioURL = URL.createObjectURL(audioBlob);
       setAudioURL(audioURL);
       audioChunksRef.current = [];
@@ -42,13 +52,23 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
     };
 
     mediaRecorderRef.current = mediaRecorder;
-    mediaRecorder.start();
+    // Request data every second to ensure we get all audio
+    mediaRecorder.start(1000);
   };
 
-  const stopRecording = () => {
-    setRecording(false);
-    mediaRecorderRef.current?.stop();
-  };
+ const stopRecording = () => {
+  setRecording(false);
+  
+  // Stop the MediaRecorder
+  mediaRecorderRef.current?.stop();
+  
+  // Stop all tracks in the stream
+  const stream = mediaRecorderRef.current?.stream;
+  stream?.getTracks().forEach(track => track.stop());
+  
+  // Clear the reference
+  mediaRecorderRef.current = null;
+};
 
   const handleSubmit = async (audioBlob: Blob) => {
     setLoading(true);
