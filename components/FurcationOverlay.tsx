@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
-import { toothData, teethWithTwoFurcations } from './utils/utils';
+import { toothData } from './utils/utils';
 
 const FurcationOverlay = () => {
   const { watch } = useFormContext();
@@ -14,7 +14,6 @@ const FurcationOverlay = () => {
       {toothData.map((tooth) => {
         if (!tooth.furcation) return null;
 
-        const hasTwoFurcations = teethWithTwoFurcations.includes(tooth.toothNumber as any);
         const implantValue = watchAllFields?.[`${tooth.toothNumber.slice(0, 2)}b`]?.implant?.[0] || 0;
         const isAbsent = watchAllFields?.[tooth.toothNumber]?.status === 'absent';
 

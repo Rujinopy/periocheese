@@ -18,7 +18,7 @@ export default function Page() {
   const formRef = useRef(null); // Reference to the form container
 
   const methods = useForm();
-  const { setValue, watch } = methods;
+  const { setValue } = methods;
 
   useEffect(() => {
     if (transcription) {
