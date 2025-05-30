@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
 import React, { useCallback } from "react";
 import { useFormContext, Controller, useWatch } from "react-hook-form";
 import Toggleform from "./Toggleform";
 import { Quadrants } from "./utils/utils";
 import ImplantToggle from "./ImplantToggle";
+import FurcationToggle from "./FurcationToggle";
+import { teethWithOneFurcation, teethWithTwoFurcations } from "./utils/utils";
 
 interface ToothComponentProps {
   toothNumber: string;
@@ -55,8 +57,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
   const { control, setValue, watch } = useFormContext();
   const allTeeth = useWatch(); // More efficient than watch() for all fields
 
-  const isAbsent = (tooth: string) =>
-    allTeeth?.[tooth]?.status === "absent";
+  const isAbsent = (tooth: string) => allTeeth?.[tooth]?.status === "absent";
 
   const handleToggleBlankFields = useCallback(() => {
     const baseNumber = toothNumber.slice(0, -1);
@@ -73,7 +74,11 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
       case "mobility":
         return (
           sections.mobility && (
-            <div className={`flex items-center justify-center border-black ${parseInt(toothNumber.slice(0,1)) >= 3 ? "border-t-2" : null }  w-[47px]`}>
+            <div
+              className={`flex items-center justify-center border-black ${
+                parseInt(toothNumber.slice(0, 1)) >= 3 ? "border-t-2" : null
+              }  w-[47px]`}
+            >
               <Controller
                 name={`${toothNumber}.mobility.0`}
                 control={control}
@@ -107,15 +112,38 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
           )
         );
       case "furcation":
+        const hasTwoFurcations = teethWithTwoFurcations.includes(
+          toothNumber as any
+        );
+        const hasOneFurcation = teethWithOneFurcation.includes(
+          toothNumber as any
+        );
+
         return (
           sections.furcation && (
-            <div className="flex divide-x-2 divide-black w-[47px] border-t border-black">
-              {["6", "7", "8"].includes(toothNumber.slice(1, 2)) ? (
-                <Toggleform
+            <div className="flex divide-x-2 divide-black w-[47px] h-[16px] border-t border-black">
+              {hasTwoFurcations ? (
+                // Two furcation toggles
+                <>
+                  <FurcationToggle
+                    name={`${toothNumber}.furcation.0`}
+                    disabled={isAbsent(toothNumber)}
+                    width="w-[23.5px]"
+                  />
+                  <FurcationToggle
+                    name={`${toothNumber}.furcation.1`}
+                    disabled={isAbsent(toothNumber)}
+                    width="w-[23.5px]"
+                  />
+                </>
+              ) : hasOneFurcation ? (
+                // One furcation toggle
+                <FurcationToggle
                   name={`${toothNumber}.furcation.0`}
-                  onColor={isAbsent(toothNumber) ? "bg-white" : "bg-green-500"}
+                  disabled={isAbsent(toothNumber)}
                 />
               ) : (
+                // No furcation (disabled button)
                 <input
                   type="button"
                   className="w-full text-center bg-black"
@@ -134,9 +162,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                   disabled={isAbsent(toothNumber)}
                   key={index}
                   name={`${toothNumber}.bleeding.${index}`}
-                  onColor={
-                    isAbsent(toothNumber) ? "bg-white" : "bg-red-400"
-                  }
+                  onColor={isAbsent(toothNumber) ? "bg-white" : "bg-red-400"}
                 />
               ))}
             </div>
@@ -151,9 +177,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                   disabled={isAbsent(toothNumber)}
                   key={index}
                   name={`${toothNumber}.plaque.${index}`}
-                  onColor={
-                    isAbsent(toothNumber) ? "bg-white" : "bg-yellow-400"
-                  }
+                  onColor={isAbsent(toothNumber) ? "bg-white" : "bg-yellow-400"}
                 />
               ))}
             </div>
