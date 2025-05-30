@@ -1,3 +1,14 @@
+export const CHART_OFFSETS = {
+  left: 0,
+  top: 6
+} as const;
+
+export const calculateFurcationPosition = (left: number, top: number) => ({
+  left: left - CHART_OFFSETS.left,
+  top: top - CHART_OFFSETS.top
+});
+
+
 export const teethStatus: Record<string, string> = {
   "18": "present",
   "17": "present",
@@ -33,40 +44,16 @@ export const teethStatus: Record<string, string> = {
   "48": "present",
 };
 
-// export const implantStatus: Record<string, boolean> = {
-//   "18": false,
-//   "17": false,
-//   "16": false,
-//   "15": false,
-//   "14": false,
-//   "13": false,
-//   "12": false,
-//   "11": false,
-//   "21": false,
-//   "22": false,
-//   "23": false,
-//   "24": false,
-//   "25": false,
-//   "26": false,
-//   "27": false,          
-//   "28": false,
-//   "38": false,
-//   "37": false,
-//   "36": false,
-//   "35": false,
-//   "34": false,
-//   "33": false,
-//   "32": false,
-//   "31": false,
-//   "41": false,
-//   "42": false,
-//   "43": false,
-//   "44": false,
-//   "45": false,
-//   "46": false,
-//   "47": false,
-//   "48": false,
-// }
+export const teethWithTwoFurcations = [
+  "14p", "16p", "17p", "18p",
+  "24p", "26p", "27p", "28p"
+] as const;
+
+export const teethWithOneFurcation = [
+  "18b", "17b", "16b", "26b", "27b", "28b",
+  "48b", "47b", "46b", "38b", "37b", "36b",
+  "38l", "37l", "36l", "46l", "47l", "48l"
+] as const;
 
 export const toothData = [
  {
@@ -75,7 +62,8 @@ export const toothData = [
     xinterCoords: [332, 346],
     absenceLine: { left: 301.55, top: 488.55 },
     implantLayout: { left: 279, top: 466, width: 60, height: 137 },
-    teethStatus: teethStatus[18]
+    teethStatus: teethStatus[18],
+    furcation: [calculateFurcationPosition(304.5, 558.45)]
   },
   {
     toothNumber: "17b", 
@@ -83,7 +71,8 @@ export const toothData = [
     xinterCoords: [386, 397],
     absenceLine: { left: 361.45, top: 478.55 },
     implantLayout: { left: 339, top: 466, width: 54, height: 137 },
-    teethStatus: teethStatus[17]
+    teethStatus: teethStatus[17],
+    furcation: [calculateFurcationPosition(357.5, 556.5)]
   },
   {
     toothNumber: "16b",
@@ -91,14 +80,15 @@ export const toothData = [
     xinterCoords: [451, 463],
     absenceLine: { left: 417.95, top: 478.55 },
     implantLayout: { left: 393, top: 466, width: 62, height: 137 },
-    teethStatus: teethStatus[16]
+    teethStatus: teethStatus[16],
+    furcation: [calculateFurcationPosition(415.5, 555.5)]
   },
   {
     toothNumber: "15b",
     xCoords: [463, 476, 489],
     xinterCoords: [489, 504], 
     absenceLine: { left: 472.45, top: 478.55 },
-    implantLayout: { left: 454.95, top: 466, width: 41, height: 137 },
+    implantLayout: { left: 455.95, top: 466, width: 41, height: 137 },
     teethStatus: teethStatus[15]
   },
   {
@@ -133,26 +123,29 @@ export const toothData = [
     implantLayout: { left: 618, top: 466, width: 62, height: 137 },
     teethStatus: teethStatus[11]
   },
-   {
+  {
     toothNumber: "28b",
     xCoords: [1063, 1044.5, 1026],
     xinterCoords: [1026, 1011],
     absenceLine: { left: 1044.4, top: 478.55 },
-    implantLayout: { left: 1020, top: 466, width: 60, height: 137 }
-  },
-  {
+    implantLayout: { left: 1020, top: 466, width: 60, height: 137 },
+    furcation: [calculateFurcationPosition(1037.5, 558.45)]
+},
+{
     toothNumber: "27b",
     xCoords: [1011, 991.5, 972],
     xinterCoords: [972, 961],
     absenceLine: { left: 987.9, top: 478.55 },
-    implantLayout: { left: 965, top: 466, width: 55, height: 137 }
-  },
-  {
+    implantLayout: { left: 965, top: 466, width: 55, height: 137 },
+    furcation: [calculateFurcationPosition(984, 556.5)]
+},
+{
     toothNumber: "26b",
     xCoords: [961, 934, 907],
     xinterCoords: [907, 895],
     absenceLine: { left: 931.45, top: 478.55 },
-    implantLayout: { left: 903, top: 466, width: 62, height: 137 }
+    implantLayout: { left: 903, top: 466, width: 62, height: 137 },
+    furcation: [calculateFurcationPosition(927.5, 555.5)]
   },
   {
     toothNumber: "25b",
@@ -195,30 +188,33 @@ export const toothData = [
     xinterCoords: [332, 346],
     absenceLine: { left: 295.45, top: 642.25 },
     implantLayout: { left: 279, top: 687, width: 60, height: 119 },
+    furcation: [calculateFurcationPosition(288.7, 704.2), calculateFurcationPosition(315.5, 710.7)],
     status: teethStatus[18]
-  },
-  {
+},
+{
     toothNumber: "17p",
     xCoords: [346, 366, 386],
     xinterCoords: [386, 397],
     absenceLine: { left: 351.45, top: 642.25 },
-    implantLayout: { left: 339, top: 687, width: 54, height: 137 },
+    implantLayout: { left: 339, top: 680, width: 54, height: 137 },
+    furcation: [calculateFurcationPosition(340, 716.5), calculateFurcationPosition(364, 719)],
     status: teethStatus[17]
-  },
-  {
+},
+{
     toothNumber: "16p",
     xCoords: [397, 424, 451],
     xinterCoords: [451, 463],
     absenceLine: { left: 414.45, top: 642.25 },
-    implantLayout: { left: 393, top: 687, width: 62, height: 137 },
+    implantLayout: { left: 393, top: 685, width: 62, height: 137 },
+    furcation: [calculateFurcationPosition(397.5, 720.5), calculateFurcationPosition(431.5, 707.5)],
     status: teethStatus[16]
-  },
+},
   {
     toothNumber: "15p",
     xCoords: [463, 476, 489],
     xinterCoords: [489, 504],
     absenceLine: { left: 464.95, top: 642.25 },
-    implantLayout: { left: 454.95, top: 687, width: 41, height: 137 },
+    implantLayout: { left: 455.95, top: 680, width: 41, height: 137 },
     status: teethStatus[15]
   },
   {
@@ -227,7 +223,8 @@ export const toothData = [
     xinterCoords: [528, 544],
     absenceLine: { left: 507.45, top: 642.25 },
     implantLayout: { left: 495.95, top: 687, width: 43, height: 137 },
-    status: teethStatus[14]
+    status: teethStatus[14],
+    furcation: [calculateFurcationPosition(501.5, 718.5), calculateFurcationPosition(518.5, 712.5)]
   },
   {
     toothNumber: "13p",
@@ -259,24 +256,27 @@ export const toothData = [
     xinterCoords: [1026, 1011],
     absenceLine: { left: 1039.9, top: 642.25 },
     implantLayout: { left: 1020, top: 687, width: 60, height: 119 },
+    furcation: [calculateFurcationPosition(1027.5, 710.7), calculateFurcationPosition(1053.5, 705.5)],
     status: teethStatus[17]
-  },
-  {
+},
+{
     toothNumber: "27p",
     xCoords: [1011, 991.5, 972],
     xinterCoords: [972, 961],
     absenceLine: { left: 983.4, top: 645.25 },
     implantLayout: { left: 965, top: 687, width: 55, height: 137 },
+    furcation: [calculateFurcationPosition(978.5, 715.7), calculateFurcationPosition(1002.5, 716.5)],
     status: teethStatus[17]
-  },
-  {
+},
+{
     toothNumber: "26p",
     xCoords: [961, 934, 907],
     xinterCoords: [907, 895],
     absenceLine: { left: 926.95, top: 642.25 },
     implantLayout: { left: 903, top: 687, width: 62, height: 137 },
+    furcation: [calculateFurcationPosition(912.5, 707.5), calculateFurcationPosition(947.5, 720.5)],
     status: teethStatus[17]
-  },
+},
   {
     toothNumber: "25p",
     xCoords: [895, 882, 869],
@@ -291,7 +291,8 @@ export const toothData = [
     xinterCoords: [829, 815],
     absenceLine: { left: 828.95, top: 642.25 },
     implantLayout: { left: 820, top: 687, width: 43, height: 137 },
-    status: teethStatus[17]
+    status: teethStatus[17],
+    furcation: [calculateFurcationPosition(825.5, 712.5), calculateFurcationPosition(842.5, 718.5)]
   },
   {
     toothNumber: "23p",
@@ -322,22 +323,25 @@ export const toothData = [
     xCoords: [296, 319, 342],
     xinterCoords: [342, 358],
     absenceLine: { left: 307.65, top: 1257.55 },
-    implantLayout: { left: 287, top: 1295, width: 64, height: 131 }
-  },
-  {
+    implantLayout: { left: 287, top: 1295, width: 64, height: 131 },
+    furcation: [calculateFurcationPosition(308.5, 1328.5)]
+},
+{
     toothNumber: "47b",
     xCoords: [358, 382, 406],
     xinterCoords: [406, 422],
     absenceLine: { left: 372.65, top: 1257.55 },
-    implantLayout: { left: 351, top: 1295, width: 62, height: 131 }
-  },
-  {
+    implantLayout: { left: 351, top: 1295, width: 62, height: 131 },
+    furcation: [calculateFurcationPosition(375.5, 1328.5)]
+},
+{
     toothNumber: "46b",
     xCoords: [422, 445.5, 469],
     xinterCoords: [469, 492],
     absenceLine: { left: 434.65, top: 1257.55 },
-    implantLayout: { left: 413, top: 1295, width: 67, height: 131 }
-  },
+    implantLayout: { left: 413, top: 1295, width: 67, height: 131 },
+    furcation: [calculateFurcationPosition(442.5, 1323.5)]
+},
   {
     toothNumber: "45b",
     xCoords: [492, 502.5, 513],
@@ -433,27 +437,30 @@ export const toothData = [
   },
 
   // Third quadrant (31-38)
-  {
+ {
     toothNumber: "38b",
     xCoords: [1061, 1038.5, 1016],
     xinterCoords: [1016, 999],
     absenceLine: { left: 1035.1, top: 1257.55 },
-    implantLayout: { left: 1008, top: 1295, width: 80, height: 138 }
-  },
-  {
+    implantLayout: { left: 1008, top: 1295, width: 80, height: 138 },
+    furcation: [calculateFurcationPosition(1034.5, 1328.5)]
+},
+{
     toothNumber: "37b",
     xCoords: [999, 975.5, 952],
     xinterCoords: [952, 936],
     absenceLine: { left: 964.6, top: 1257.55 },
-    implantLayout: { left: 946, top: 1295, width: 62, height: 137 }
-  },
-  {
+    implantLayout: { left: 946, top: 1295, width: 62, height: 137 },
+    furcation: [calculateFurcationPosition(967, 1328.5)]
+},
+{
     toothNumber: "36b",
     xCoords: [936, 911.5, 887],
     xinterCoords: [887, 864],
     absenceLine: { left: 901.15, top: 1257.55 },
-    implantLayout: { left: 879, top: 1295, width: 67, height: 131 }
-  },
+    implantLayout: { left: 879, top: 1295, width: 67, height: 131 },
+    furcation: [calculateFurcationPosition(900.5, 1323.5)]
+},
   {
     toothNumber: "35b",
     xCoords: [864, 854.5, 845],
