@@ -9,6 +9,7 @@ import { Quadrants, toothData } from "@/components/utils/utils";
 import SaveAsImageButton from "@/components/SaveAsImageButton"; // Import the button
 import LineAbsence from "@/components/LineAbsence";
 import ImplantImage from "@/components/ImplantImage";
+import FurcationOverlay from "@/components/FurcationOverlay";
 
 export default function Page() {
   const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -63,10 +64,24 @@ export default function Page() {
               setValue(`${data.toothNumber}.mobility.0`, data.mobility);
             }
             if (data.furcation) {
-              setValue(`${data.toothNumber}.furcation`, data.furcation);
+              // Handle array of furcation values
+              data.furcation.forEach((value: number, index: number) => {
+                setValue(`${data.toothNumber}.furcation.${index}`, value);
+              });
             }
             if (data.implant) {
-              setValue(`${data.toothNumber}.implant.0`, data.implant);
+              const baseNumber = data.toothNumber.slice(0, 2); // Get base number (e.g., "26" from "26b")
+              // Determine surfaces based on tooth number
+              const surfaces =
+                parseInt(baseNumber) <= 28
+                  ? ["b", "p"] // Upper teeth (11-28): buccal and palatal
+                  : ["b", "l"]; // Lower teeth (31-48): buccal and lingual
+
+              // Set implant value for all surfaces
+              surfaces.forEach((surface) => {
+                const toothId = `${baseNumber}${surface}`;
+                setValue(`${toothId}.implant.0`, Number(data.implant));
+              });
             }
           });
         } else {
@@ -130,7 +145,7 @@ export default function Page() {
                 <div className="absolute w-full h-full z-10 top-0 left-0">
                   <img src="/grid/svg_teeth.svg" className="w-full h-full" />
                 </div>
-
+                <FurcationOverlay />
                 {/* LineAbsence - Move this above other interactive components */}
                 <div className="absolute z-[45] md:scale-100 transform scale-100 mx-auto">
                   {toothData.map((data, index) =>
