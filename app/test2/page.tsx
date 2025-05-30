@@ -10,6 +10,9 @@ import SaveAsImageButton from "@/components/SaveAsImageButton"; // Import the bu
 import LineAbsence from "@/components/LineAbsence";
 import ImplantImage from "@/components/ImplantImage";
 import FurcationOverlay from "@/components/FurcationOverlay";
+import { saveToFile } from "@/utils/fileOperations";
+import UtilityDropdown from "@/components/UtilityDropdown";
+const STORAGE_KEY = "periodontal-chart-data";
 
 export default function Page() {
   const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -17,8 +20,33 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null); // Reference to the form container
 
-  const methods = useForm();
-  const { setValue } = methods;
+  const methods = useForm({
+    defaultValues:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}")
+        : {},
+  });
+
+  const { setValue, watch } = methods;
+
+  // Watch all form changes and save to localStorage
+  useEffect(() => {
+    const subscription = watch((formData) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  // Add a function to clear the saved data
+  const clearSavedData = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(STORAGE_KEY);
+      window.location.reload();
+    }
+  };
 
   useEffect(() => {
     if (transcription) {
@@ -97,20 +125,31 @@ export default function Page() {
     console.log("Submitted Data:", data);
   };
 
+  const handleSaveToFile = () => {
+    const formData = methods.getValues();
+    saveToFile(formData);
+  };
+
   return (
     <div className="w-full">
-      {/* Recording Button */}
-      <div className="fixed top-[0px] left-[50%] flex z-50">
-        <RecordingButton
-          setAudioURL={setAudioURL}
-          setTranscription={setTranscription}
-          setLoading={setLoading}
-          loading={loading} // Pass the loading state here
-        />
-        <SaveAsImageButton formRef={formRef} />
-      </div>
-
       {/*BODY  */}
+      {/* Recording Button */}
+      <div className="fixed top-[0px] left-[55%] z-50 ">
+        <div className="flex gap-1">
+          <RecordingButton
+            setAudioURL={setAudioURL}
+            setTranscription={setTranscription}
+            setLoading={setLoading}
+            loading={loading} // Pass the loading state here
+          />
+          {/* <SaveAsImageButton formRef={formRef} /> */}
+          <UtilityDropdown
+            formRef={formRef}
+            onClearData={clearSavedData}
+            onSaveJson={handleSaveToFile}
+          />
+        </div>
+      </div>
       <div ref={formRef} className="mx-auto w-[1200px] h-[1600px]">
         <div
           className="relative w-[1200px] h-[1600px]"
@@ -160,12 +199,6 @@ export default function Page() {
                   )}
                 </div>
 
-                <button
-                  className="z-50 hover:cursor-pointer bg-blue-500 text-white p-2 rounded-md bottom-10 right-4 absolute left-0 top-0 w-40 h-20"
-                  type="submit"
-                >
-                  Submit
-                </button>
                 <div className=" w-full mx-auto ">
                   <svg className="absolute z-30 left-0 top-0 w-[1200px] h-[1600px] ">
                     {[
