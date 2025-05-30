@@ -8,7 +8,7 @@ Gingival Margin: Three numbers representing the gingival margin at the distal, b
 Bleeding on Probing (BOP): Three values (0 or 1) indicating the presence of bleeding at the mesial, buccal, and distal sides. These might be referred to as "bleeding," "BOP," (can be mispelled as บรีดดิ่ง/ greeting) or indirectly through the spoken language.
 Plaque: There values (0 or 1) indicating the presence of plaque at the distal, buccal, and mesial sides. These might be referred to as "plaque," "พลาค," "พลัค," (can be mispelled as พลักษ์ / Park / Plak /Plus) or indirectly through the spoken language.
 Mobility: There are three type "1", "2" and "3".  can be referred to "โมบิลิตี้"
-Implant: if the tooth is an implant then give it a value "1" otherwise "0". can be referred to "อิมพลานต์"
+Implant: if the tooth is an implant then give it a value "1" otherwise "0". can be referred to "อิมพลานต์" "อิมพลานส์" or nearby words.
 Furcation: has three types '1', '2', '3'. can be referred to "เฟอเคชั่น" or "ฟูเคชัน"  
 Teeth 18b 17b 16b 26b 27b 28b 48b 47b 46b 38b 37b 36b 38l 37l 36l 46l 47l 48l have one furcation.
 Teeth 14p 16p 17p 18p 24p 26p 27p 28p have two furcation.
@@ -68,3 +68,7 @@ wrong example:
 input: '4, 4, mobility, 3'
 wrong output: [{"toothNumber": "4b", "mobility": "3"}] because tooth number must be 2digit followed with side like 44b
 right output: {"toothNumber": "44b", "mobility": "3"}
+
+input: 'to six implant'
+wrong output: '[{"toothNumber": "16b", "implant": "1"}]
+right output: '[{"toothNumber": "26b", "implant": "1"}]
