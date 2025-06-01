@@ -1,17 +1,19 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import ToothComponent from "@/components/ToothComponent";
 import RecordingButton from "@/components/RecordingButton";
 import Periovectors from "@/components/Periovectors";
 import { Quadrants, toothData } from "@/components/utils/utils";
-import SaveAsImageButton from "@/components/SaveAsImageButton"; // Import the button
 import LineAbsence from "@/components/LineAbsence";
 import ImplantImage from "@/components/ImplantImage";
 import FurcationOverlay from "@/components/FurcationOverlay";
 import { saveToFile } from "@/utils/fileOperations";
 import UtilityDropdown from "@/components/UtilityDropdown";
+import ProfileForm from "@/components/ProfileForm";
+import { useDebounce } from '@/hooks/useDebounce';
+
 const STORAGE_KEY = "periodontal-chart-data";
 
 export default function Page() {
@@ -29,16 +31,22 @@ export default function Page() {
 
   const { setValue, watch } = methods;
 
-  // Watch all form changes and save to localStorage
+  const saveToLocalStorage = useCallback((formData: any) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      console.log("saved with delay");
+    }
+  }, []);
+
+  const debouncedSave = useDebounce(saveToLocalStorage, 1000);
+
   useEffect(() => {
     const subscription = watch((formData) => {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-      }
+      debouncedSave(formData);
     });
 
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, debouncedSave]);
 
   // Add a function to clear the saved data
   const clearSavedData = () => {
@@ -164,6 +172,7 @@ export default function Page() {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="absolute top-0 left-0 w-full h-full origin-top-left z-40 "
               >
+                <ProfileForm />
                 {/* Base layers */}
                 <div className="absolute w-full h-full z-20 top-0 left-0">
                   <img
