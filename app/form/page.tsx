@@ -22,6 +22,7 @@ export default function Page() {
   const [transcription, setTranscription] = useState("");
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null); // Reference to the form container
+  const [transcribeModel, setTranscribeModel] = useState("whisper-1");
 
   const methods = useForm({
     defaultValues:
@@ -141,23 +142,28 @@ export default function Page() {
     saveToFile(formData);
   };
 
+  
+
   return (
     <div className="w-full">
       {/*BODY  */}
       {/* Recording Button */}
-      <div className="fixed top-[0px] left-[55%] z-50 ">
+      <div className="fixed top-[0px] left-[50%] z-50 ">
         <div className="flex gap-1">
           <RecordingButton
             setAudioURL={setAudioURL}
             setTranscription={setTranscription}
             setLoading={setLoading}
-            loading={loading} // Pass the loading state here
+            loading={loading}
+            model={transcribeModel} // Pass the model to RecordingButton
           />
           {/* <SaveAsImageButton formRef={formRef} /> */}
           <UtilityDropdown
             formRef={formRef}
             onClearData={clearSavedData}
             onSaveJson={handleSaveToFile}
+            onModelChange={setTranscribeModel}
+            currentModel={transcribeModel}
           />
         </div>
       </div>

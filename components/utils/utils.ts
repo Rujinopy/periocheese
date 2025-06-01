@@ -8,6 +8,8 @@ export const calculateFurcationPosition = (left: number, top: number) => ({
   top: top - CHART_OFFSETS.top
 });
 
+export const transcribeModels = ['whisper-1', 'gpt-4o-transcribe', 'gpt-4o-mini-transcribe']
+
 
 export const teethStatus: Record<string, string> = {
   "18": "present",

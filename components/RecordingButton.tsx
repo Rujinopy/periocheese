@@ -14,14 +14,17 @@ interface RecordingButtonProps {
   setAudioURL: (url: string | null) => void;
   setTranscription: (text: string) => void;
   setLoading: (loading: boolean) => void;
-  loading: boolean; // Add loading state as a prop
+  loading: boolean;
+  model: string;
 }
+
 
 export default function RecordingButton({
   setAudioURL,
   setTranscription,
   setLoading,
   loading,
+  model
 }: RecordingButtonProps) {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -87,7 +90,7 @@ export default function RecordingButton({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ audio: base64Audio, mode }),
+            body: JSON.stringify({ audio: base64Audio, mode, model }),
           });
 
           const data = await response.json();
