@@ -93,4 +93,7 @@ const ProfileForm = memo(() => {
   );
 });
 
+// Add display name to the memoized component
+ProfileForm.displayName = 'ProfileForm';
+
 export default ProfileForm;

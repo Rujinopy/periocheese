@@ -17,6 +17,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 const STORAGE_KEY = "periodontal-chart-data";
 
 export default function Page() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [audioURL, setAudioURL] = useState<string | null>(null);
   const [transcription, setTranscription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ export default function Page() {
 
   const { setValue, watch } = methods;
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const saveToLocalStorage = useCallback((formData: any) => {
     if (typeof window !== "undefined") {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
@@ -64,7 +66,7 @@ export default function Page() {
 
         // Check if the parsed data is an array
         if (Array.isArray(dataArray)) {
-          dataArray.forEach((data, i) => {
+          dataArray.forEach((data) => {
             const quadrant = data.toothNumber.slice(0, 1);
             // Conditionally set depth if it exists
             if (data.depth) {
@@ -129,6 +131,7 @@ export default function Page() {
     }
   }, [setValue, transcription]);
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
     console.log("Submitted Data:", data);
   };
@@ -191,7 +194,7 @@ export default function Page() {
 
                 {/* SVG Teeth layer */}
                 <div className="absolute w-full h-full z-10 top-0 left-0">
-                  <img src="/grid/svg_teeth.svg" className="w-full h-full" />
+                  <img alt="teeth" src="/grid/svg_teeth.svg" className="w-full h-full" />
                 </div>
                 <FurcationOverlay />
                 {/* LineAbsence - Move this above other interactive components */}
@@ -570,3 +573,5 @@ export default function Page() {
     </div>
   );
 }
+
+

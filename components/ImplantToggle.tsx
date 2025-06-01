@@ -17,6 +17,8 @@ const ImplantToggle: React.FC<ImplantToggleProps> = ({
 }) => {
   const { control, setValue } = useFormContext();
 
+
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleToggle = (field: any) => {
     const newValue = field.value === 1 ? 0 : 1;
     field.onChange(newValue);

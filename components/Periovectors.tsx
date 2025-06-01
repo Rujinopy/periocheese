@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { toothData, Mode, Quadrants } from '@/components/utils/utils'
 
@@ -60,7 +60,7 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 }
 
                 if (mode === "PD") {
-                        let CAL_Line = xCoords.map((x, index) => {
+                        const CAL_Line = xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 const y = dontswappedQuadrant.includes(quadrant) ?
                                         yValue + ((parseFloat(gingivalMargin[index]) * 6.5) - (parseFloat(pocketDepth[index]) * 6.5))
@@ -69,7 +69,7 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                                 return `${x},${y}`;
                         }).join(' ');
 
-                        let GM_Line = xCoords.map((x, index) => {
+                        const GM_Line = xCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 const y = dontswappedQuadrant.includes(quadrant) ?
                                         yValue + parseInt(gingivalMargin[index]) * 6.5
@@ -124,7 +124,7 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                 }
 
                 if (mode === "PD") {
-                        let CAL_Line = xinterCoords.map((x, index) => {
+                        const CAL_Line = xinterCoords.map((x, index) => {
                                 // Adjust the y coordinate based on PD and GM
                                 if (index === 0) {
                                         const y = dontswappedQuadrant.includes(quadrant) ?
@@ -143,7 +143,7 @@ const Periovectors: React.FC<PeriovectorsProps> = ({ toothNumber, quadrant }) =>
                                 }
                         }).join(' ');
 
-                        let GM_Line = xinterCoords.map((x, index) => {
+                        const GM_Line = xinterCoords.map((x, index) => {
                                 if (index === 0) {
                                         const y = dontswappedQuadrant.includes(quadrant) ?
                                                 yValue + parseInt(gingivalMargin[2]) * 6.5
@@ -200,9 +200,4 @@ function arraysEqual(a: number[], b: number[]): boolean {
 const extractNumericPart = (toothNumber: string): number => {
         const match = toothNumber.match(/\d+/);  // Extract numeric part of the string
         return match ? parseInt(match[0]) : 0;   // If found, convert to number, otherwise return 0
-};
-
-const getToswap = (quadrant: Quadrants) => {
-        const toswapQuadrants = ['Q1B', 'Q2B', 'Q3L', 'Q4L'];
-        return toswapQuadrants.includes(quadrant) ? 'flex-col' : 'flex-col-reverse';
 };

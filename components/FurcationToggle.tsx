@@ -28,6 +28,8 @@ const FurcationToggle: React.FC<FurcationToggleProps> = ({
   // Combine disabled states - disabled if tooth is absent OR has implant
   const isDisabled = disabled || implantValue === 1;
 
+  
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleToggle = (field: any) => {
     const newValue = (field.value + 1) % 4;
     field.onChange(newValue);

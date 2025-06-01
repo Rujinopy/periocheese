@@ -112,12 +112,10 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
           )
         );
       case "furcation":
-        const hasTwoFurcations = teethWithTwoFurcations.includes(
-          toothNumber as any
-        );
-        const hasOneFurcation = teethWithOneFurcation.includes(
-          toothNumber as any
-        );
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const hasTwoFurcations = teethWithTwoFurcations.includes(toothNumber as any);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const hasOneFurcation = teethWithOneFurcation.includes(toothNumber as any);
 
         return (
           sections.furcation && (

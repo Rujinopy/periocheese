@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
 import { useState, useRef } from "react";
-import { Mic } from "lucide-react"
+import { Mic } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-
+} from "@/components/ui/select";
 
 interface RecordingButtonProps {
   setAudioURL: (url: string | null) => void;
@@ -18,25 +17,30 @@ interface RecordingButtonProps {
   loading: boolean; // Add loading state as a prop
 }
 
-export default function RecordingButton({ setAudioURL, setTranscription, setLoading, loading }: RecordingButtonProps) {
+export default function RecordingButton({
+  setAudioURL,
+  setTranscription,
+  setLoading,
+  loading,
+}: RecordingButtonProps) {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [mode, setMode] = useState<string | null>(null); 
+  const [mode, setMode] = useState<string | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
-   const startRecording = async () => {
+  const startRecording = async () => {
     setRecording(true);
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    
+
     // Check for supported MIME types
-    const mimeType = MediaRecorder.isTypeSupported('audio/mpeg')
-      ? 'audio/mpeg'
-      : MediaRecorder.isTypeSupported('audio/mp3')
-      ? 'audio/mp3'
-      : 'audio/webm';
+    const mimeType = MediaRecorder.isTypeSupported("audio/mpeg")
+      ? "audio/mpeg"
+      : MediaRecorder.isTypeSupported("audio/mp3")
+      ? "audio/mp3"
+      : "audio/webm";
 
     const mediaRecorder = new MediaRecorder(stream, {
-      mimeType
+      mimeType,
     });
 
     mediaRecorder.ondataavailable = (event) => {
@@ -56,19 +60,19 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
     mediaRecorder.start(1000);
   };
 
- const stopRecording = () => {
-  setRecording(false);
-  
-  // Stop the MediaRecorder
-  mediaRecorderRef.current?.stop();
-  
-  // Stop all tracks in the stream
-  const stream = mediaRecorderRef.current?.stream;
-  stream?.getTracks().forEach(track => track.stop());
-  
-  // Clear the reference
-  mediaRecorderRef.current = null;
-};
+  const stopRecording = () => {
+    setRecording(false);
+
+    // Stop the MediaRecorder
+    mediaRecorderRef.current?.stop();
+
+    // Stop all tracks in the stream
+    const stream = mediaRecorderRef.current?.stream;
+    stream?.getTracks().forEach((track) => track.stop());
+
+    // Clear the reference
+    mediaRecorderRef.current = null;
+  };
 
   const handleSubmit = async (audioBlob: Blob) => {
     setLoading(true);
@@ -76,12 +80,12 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
       const reader = new FileReader();
       reader.readAsDataURL(audioBlob);
       reader.onloadend = async () => {
-        const base64Audio = reader.result?.toString().split(',')[1];
+        const base64Audio = reader.result?.toString().split(",")[1];
         if (base64Audio) {
-          const response = await fetch('/api/whisper', {
-            method: 'POST',
+          const response = await fetch("/api/whisper", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ audio: base64Audio, mode }),
           });
@@ -96,6 +100,7 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
       };
     } catch (error) {
       alert("An error occurred while submitting the form.");
+      console.error("Error submitting audio:", error);
     } finally {
       setLoading(false);
     }
@@ -108,8 +113,13 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
         onClick={recording ? stopRecording : startRecording}
         disabled={loading}
       >
-        {recording ? 'Stop Recording' : <div className="flex"><Mic /></div>}
-
+        {recording ? (
+          "Stop Recording"
+        ) : (
+          <div className="flex">
+            <Mic />
+          </div>
+        )}
       </button>
       <Select onValueChange={(value) => setMode(value)}>
         <SelectTrigger className="w-[180px] bg-white border-2 border-black text-black">
@@ -121,7 +131,6 @@ export default function RecordingButton({ setAudioURL, setTranscription, setLoad
           <SelectItem value="lingual">Lingual</SelectItem>
         </SelectContent>
       </Select>
-
     </div>
   );
 }

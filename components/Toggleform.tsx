@@ -13,8 +13,10 @@ interface ToggleButtonProps {
 
 const Toggleform: React.FC<ToggleButtonProps> = ({ name, defaultValue = 0, onColor = 'bg-yellow-500', offColor = 'bg-white', disabled= false }) => {
   const { control } = useFormContext();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [toggled, setToggled] = useState(defaultValue === 1);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleToggle = (field: any) => {
     const newValue = field.value === 1 ? 0 : 1;
     setToggled(newValue === 1); // Update toggle state based on new value
