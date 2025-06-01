@@ -1,12 +1,12 @@
-"use client"
-import { useFormContext } from "react-hook-form";
+"use client";
+import { useFormContext, Controller } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { memo } from 'react';
+import { memo } from "react";
 
 const ProfileForm = memo(() => {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
 
   return (
     <div className="absolute z-50">
@@ -54,21 +54,39 @@ const ProfileForm = memo(() => {
           />
         </div>
         <div className="space-y-2">
-          {/* <Label>Chart Type</Label> */}
-          <RadioGroup
+          <Controller
+            name="profile.chartType"
+            control={control}
             defaultValue="initial"
-            {...register("profile.chartType")}
-            className="flex space-x-4"
-          >
-            <div className="flex items-center space-x-2 absolute left-[80px] top-[260px]">
-              <RadioGroupItem value="initial" id="initial" className="w-[30px] h-[30px] rounded-none" />
-              {/* <Label htmlFor="initial">Initial Exam</Label> */}
-            </div>
-            <div className="flex items-center space-x-2 absolute left-[270px] top-[260px]">
-              <RadioGroupItem value="reevaluation" id="reevaluation" className="w-[30px] h-[30px] rounded-none" />
-              <Label className="text-2xl font-bold absolute -right-[160px]" htmlFor="reevaluation">Reevaluation</Label>
-            </div>
-          </RadioGroup>
+            render={({ field }) => (
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="flex space-x-4"
+              >
+                <div className="flex items-center space-x-2 absolute left-[80px] top-[260px]">
+                  <RadioGroupItem
+                    value="initial"
+                    id="initial"
+                    className="w-[30px] h-[30px] rounded-none"
+                  />
+                </div>
+                <div className="flex items-center space-x-2 absolute left-[270px] top-[260px]">
+                  <RadioGroupItem
+                    value="reevaluation"
+                    id="reevaluation"
+                    className="w-[30px] h-[30px] rounded-none"
+                  />
+                  <Label
+                    className="text-2xl font-bold absolute -right-[160px]"
+                    htmlFor="reevaluation"
+                  >
+                    Reevaluation
+                  </Label>
+                </div>
+              </RadioGroup>
+            )}
+          />
         </div>
       </div>
     </div>
