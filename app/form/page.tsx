@@ -69,7 +69,13 @@ export default function Page() {
         if (Array.isArray(dataArray)) {
           dataArray.forEach((data) => {
             const quadrant = data.toothNumber.slice(0, 1);
-            // Conditionally set depth if it exists
+            const baseNumber = data.toothNumber.slice(0, 2); // Get base number (e.g., "26" from "26b")
+            const surfaces =
+                parseInt(baseNumber) <= 28
+                  ? ["b", "p"] // Upper teeth (11-28): buccal and palatal
+                  : ["b", "l"]; // Lower teeth (31-48): buccal and lingual
+
+             // Conditionally set depth if it exists
             if (data.depth) {
               if (quadrant === "1" || quadrant === "4") {
                 setValue(`${data.toothNumber}.depth`, data.depth);
@@ -88,6 +94,13 @@ export default function Page() {
                   data.margin.toReversed()
                 );
               }
+            }
+
+            if (data.status) {
+              surfaces.forEach((surface) => {
+                const toothId = `${baseNumber}${surface}`;
+                setValue(`${toothId}.status`, data.status);
+              });
             }
 
             // Conditionally set plaque if it exists
@@ -109,13 +122,6 @@ export default function Page() {
               });
             }
             if (data.implant) {
-              const baseNumber = data.toothNumber.slice(0, 2); // Get base number (e.g., "26" from "26b")
-              // Determine surfaces based on tooth number
-              const surfaces =
-                parseInt(baseNumber) <= 28
-                  ? ["b", "p"] // Upper teeth (11-28): buccal and palatal
-                  : ["b", "l"]; // Lower teeth (31-48): buccal and lingual
-
               // Set implant value for all surfaces
               surfaces.forEach((surface) => {
                 const toothId = `${baseNumber}${surface}`;
