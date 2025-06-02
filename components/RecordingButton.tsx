@@ -39,7 +39,7 @@ export default function RecordingButton({
     const mimeType = MediaRecorder.isTypeSupported("audio/mpeg")
       ? "audio/mpeg"
       : MediaRecorder.isTypeSupported("audio/mp3")
-      ? "audio/mp3"
+      ? "audio/webm"
       : "audio/webm";
 
     const mediaRecorder = new MediaRecorder(stream, {

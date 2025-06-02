@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const transcriptions = await openai.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: model,
-      prompt: `Dental periodontal charting session. Listen for: tooth numbers (11-18, 21-28, 31-38, 41-48), pocket depth measurements, gingival margin values, bleeding on probing, plaque scores, mobility grades, implant status, furcation types. Terms include: PD, พีดี, GM, จีเอ็ม, BOP, bleeding, บรีดดิ่ง, plaque, พลาค, พลัค, พลักษ์, mobility, โมบิลิตี้, implant, อิมพลานต์, อิมพลานส์, furcation, เฟอเคชั่น, ฟูเคชัน, cut. Numbers spoken as sequences like "four five six" or Thai numerals.`
+      // prompt: `Dental periodontal charting session. Listen for: tooth numbers (11-18, 21-28, 31-38, 41-48), pocket depth measurements, gingival margin values, bleeding on probing, plaque scores, mobility grades, implant status, furcation types. Terms include: PD, พีดี, GM, จีเอ็ม, BOP, bleeding, บรีดดิ่ง, plaque, พลาค, พลัค, พลักษ์, mobility, โมบิลิตี้, implant, อิมพลานต์, อิมพลานส์, furcation, เฟอเคชั่น, ฟูเคชัน, cut. Numbers spoken as sequences like "four five six" or Thai numerals.`
       
     });
 

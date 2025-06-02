@@ -151,7 +151,7 @@ export default function Page() {
   
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-yellow-100">
       {/*BODY  */}
       {/* Recording Button */}
       <div className="fixed top-[0px] left-[50%] z-50 ">
