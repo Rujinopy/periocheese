@@ -17,7 +17,7 @@ const Footer = () => {
     },
     {
       title: "Resources",
-      subtitle: [{ title: "How to", link: "#" }],
+      subtitle: [{ title: "How to", link: "/how-to" }],
     },
   ];
 
@@ -60,7 +60,7 @@ const Footer = () => {
         {/* Social Media Icons */}
         <div className="mt-12 pt-8 border-t-2 border-gray-800">
           <div className="flex justify-center space-x-6">
-            {["📘", "💼", "🎵", "📺"].map((icon, index) => (
+            {["🦷", "❤️", "🦷", "❤️"].map((icon, index) => (
               <button
                 key={index}
                 className="bg-gray-800 hover:bg-yellow-400 hover:text-black w-12 h-12 border-2 border-gray-600 hover:border-black flex items-center justify-center text-xl transition-all"
