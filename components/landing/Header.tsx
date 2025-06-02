@@ -100,9 +100,11 @@ const Header = () => {
               >
                 How to
               </a>
-              <button className="w-full mt-4 bg-[#FFE27A] text-black font-black px-6 py-3 border-2 border-black">
-                Try cheese
-              </button>
+              <a href="/form">
+                <button className="w-full mt-4 bg-[#FFE27A] text-black font-black px-6 py-3 border-2 border-black">
+                  Try cheese
+                </button>
+              </a>
             </div>
           </div>
         )}
