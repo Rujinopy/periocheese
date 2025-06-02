@@ -119,7 +119,7 @@ export default function Howto() {
           <ol className="space-y-6">
             <li className="flex items-start">
               <span className="font-bold mr-3">1.</span>
-              <span>Select &quot;Buccal&quot; surface</span>
+              <span>Select mode &quot;Buccal&quot; surface</span>
             </li>
 
             <li className="flex items-start">
@@ -197,7 +197,7 @@ export default function Howto() {
           <ol className="space-y-6">
             <li className="flex items-start">
               <span className="font-bold mr-3">1.</span>
-              <span>Select &quot;Palatal&quot; surface</span>
+              <span>Select mode &quot;Palatal&quot; surface</span>
             </li>
 
             <li className="flex items-start">
