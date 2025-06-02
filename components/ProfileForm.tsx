@@ -33,7 +33,7 @@ const ProfileForm = memo(() => {
             {...register("profile.dateOfBirth")}
             type="date"
             id="dateOfBirth"
-            className="py-0 absolute border-2 px-0 pl-1 border-black left-[948px] top-[210px] h-[22px] w-[140px]  border-none"
+            className="py-0 text-sm absolute border-2 px-0 pl-1 border-black left-[948px] top-[210px] h-[22px] w-[140px]  border-none"
           />
         </div>
         <div className="space-y-2">
