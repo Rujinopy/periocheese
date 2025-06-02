@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Mic } from "lucide-react";
+import { Mic, Loader2 } from "lucide-react"; // Add Loader2 import
 import {
   Select,
   SelectContent,
@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/select";
 import HowToModal from "./HowToModal";
 
+// Add LoadingSpinner component at the top of the file
+const LoadingSpinner = () => <Loader2 className="h-8 w-8 animate-spin" />;
+
 interface RecordingButtonProps {
   setAudioURL: (url: string | null) => void;
   setTranscription: (text: string) => void;
@@ -19,13 +22,12 @@ interface RecordingButtonProps {
   model: string;
 }
 
-
 export default function RecordingButton({
   setAudioURL,
   setTranscription,
   setLoading,
   loading,
-  model
+  model,
 }: RecordingButtonProps) {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -80,28 +82,37 @@ export default function RecordingButton({
 
   const handleSubmit = async (audioBlob: Blob) => {
     setLoading(true);
+
     try {
       const reader = new FileReader();
       reader.readAsDataURL(audioBlob);
-      reader.onloadend = async () => {
-        const base64Audio = reader.result?.toString().split(",")[1];
-        if (base64Audio) {
-          const response = await fetch("/api/whisper", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ audio: base64Audio, mode, model }),
-          });
 
-          const data = await response.json();
-          if (response.ok) {
-            setTranscription(data.content);
+      // Convert reader.onloadend to a Promise
+      const base64Audio = await new Promise((resolve, reject) => {
+        reader.onloadend = () => {
+          const base64 = reader.result?.toString().split(",")[1];
+          if (base64) {
+            resolve(base64);
           } else {
-            alert("Error: " + data.error);
+            reject(new Error("Failed to convert audio to base64"));
           }
-        }
-      };
+        };
+      });
+
+      const response = await fetch("/api/whisper", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ audio: base64Audio, mode, model }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setTranscription(data.content);
+      } else {
+        alert("Error: " + data.error);
+      }
     } catch (error) {
       alert("An error occurred while submitting the form.");
       console.error("Error submitting audio:", error);
@@ -112,6 +123,13 @@ export default function RecordingButton({
 
   return (
     <div className="flex space-x-5 items-center justify-center">
+      {loading && (
+        <div className="flex items-center">
+          <LoadingSpinner />
+          <span className="ml-2 text-black">Processing...</span>
+        </div>
+      )}
+
       <button
         className="px-3 py-2 bg-red-500 hover:bg-red-400 border-2 border-black text-white rounded-3xl my-4"
         onClick={recording ? stopRecording : startRecording}
