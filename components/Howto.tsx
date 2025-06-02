@@ -8,7 +8,7 @@ export default function Howto() {
           How to Use
         </h1>
       </div>
-      
+      <p className="text-center p-5">*ตอนนี้ใช้แนวนอน กับ iPad, laptop และ PC จะแสดงผลได้ดีที่สุด*</p>
       <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] mb-8">
         <h2 className="text-2xl font-bold mb-4">วิธีใช้</h2>
         <p>format การพูดคือ</p>
