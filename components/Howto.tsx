@@ -241,7 +241,7 @@ export default function Howto() {
 
             <li className="flex items-start">
               <span className="font-bold mr-3">2.</span>
-              <span>Click "Record" button</span>
+              <span>Click &quot;Record&quot; button</span>
             </li>
 
             <li className="flex items-start">
