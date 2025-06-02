@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import Howto from "./Howto";
+// import Howto from "./Howto";
 
 
 export default function HowToModal() {
@@ -15,7 +15,7 @@ export default function HowToModal() {
         </a>
       </DialogTrigger>
       <DialogContent className="max-w-[90vw] w-full max-h-[90vh] overflow-y-auto bg-green-100">
-        <Howto />
+        {/* <Howto /> */}
       </DialogContent>
     </Dialog>
   );
