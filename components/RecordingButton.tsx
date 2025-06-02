@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import HowToModal from "./HowToModal";
 
 interface RecordingButtonProps {
   setAudioURL: (url: string | null) => void;
@@ -134,6 +135,7 @@ export default function RecordingButton({
           <SelectItem value="lingual">Lingual</SelectItem>
         </SelectContent>
       </Select>
+      <HowToModal />
     </div>
   );
 }

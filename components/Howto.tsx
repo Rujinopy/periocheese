@@ -8,46 +8,7 @@ export default function Howto() {
           How to Use
         </h1>
       </div>
-      <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] mb-8">
-        <p className="mb-4 font-medium">
-          เนื่องจากใช้ ai ในการประมวลผล มันจะสามารถฟังภาษาบ้านๆได้
-          สามารถใช้เล่นกันได้เต็มที่! เหมือนคุยกับคนเลย เหมือนอย่างในคลิปที่ทุกคนเคยเห็นไป
-          คนสร้างไม่รู้ลิมิตเหมือนกัน :D แต่บางครั้งมันก็อาจจะมีความไม่แน่นอน
-          จาก noise และการพูดสองภาษาพร้อมกัน
-          หากต้องการจดแบบหวังผลให้แม่นยำหลีกเลี่ยงความผิดพลาดให้น้อยที่สุด
-          ให้ทำตามคำแนะนำในหน้านี้ เพื่อให้เป็นไปตามวิธีที่สอนเอไอไป
-        </p>
-      </div>
-
-      <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] mb-8">
-        <h2 className="text-2xl font-bold mb-4">Important Note</h2>
-        <ul className="list-disc pl-6 space-y-3">
-          <li className="font-medium">
-            {" "}
-            เวอร์ชั่น Alpha ยังมีบัคอยู่มาก (แจ้งบัคที่ ig: Rujinopy)
-          </li>
-          <li className="font-medium text-red-500">
-            {" "}
-            สำคัญ บางคนพูดแล้วมันไม่ออกเลย
-            ให้ปิดเสียงแอปทุกอย่างที่มีเสียงในเครื่องไปก่อน เช่น youtube spotify
-            (บัคอะ ไม่รู้ทำไม)
-          </li>
-          <li className="font-medium">ควรใช้ไมโครโฟนที่มีคุณภาพปานกลาง-ดี</li>
-          <li className="font-medium">ควรพูดชัดเจนและไม่เร็วเกินไป</li>
-          <li className="font-medium">
-            ควรหลีกเลี่ยงการพูดสองภาษาพร้อมกัน (อาจจะมี่ให้เลือก mode
-            ภาษาแบบเฉพาะเจาะจงทีหลัง)
-          </li>
-          <li className="font-medium">
-            ถึงจะใช้ภาษาไทย แต่ออกเสียงท้ายให้ชัดจะดีกว่า เช่น พลัคขึ (plaque)
-          </li>
-          <li className="font-medium">
-            ขณะนี้ใช้เพื่อการศึกษา ไม่ใช่อุปกรณ์ทางการแพทย์
-            โปรดใช้ด้วยความระมัดระวัง
-          </li>
-        </ul>
-      </div>
-
+      
       <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] mb-8">
         <h2 className="text-2xl font-bold mb-4">วิธีใช้</h2>
         <p>format การพูดคือ</p>
@@ -322,6 +283,45 @@ export default function Howto() {
             </li>
           </ol>
         </div>
+      </div>
+      <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] my-8">
+        <p className="mb-4 font-medium">
+          เนื่องจากใช้ ai ในการประมวลผล มันจะสามารถฟังภาษาบ้านๆได้
+          สามารถใช้เล่นกันได้เต็มที่! เหมือนคุยกับคนเลย เหมือนอย่างในคลิปที่ทุกคนเคยเห็นไป
+          คนสร้างไม่รู้ลิมิตเหมือนกัน :D แต่บางครั้งมันก็อาจจะมีความไม่แน่นอน
+          จาก noise และการพูดสองภาษาพร้อมกัน
+          หากต้องการจดแบบหวังผลให้แม่นยำหลีกเลี่ยงความผิดพลาดให้น้อยที่สุด
+          ให้ทำตามคำแนะนำในหน้านี้ เพื่อให้เป็นไปตามวิธีที่สอนเอไอไป
+        </p>
+      </div>
+
+      <div className="bg-white border-4 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_#000] mb-8">
+        <h2 className="text-2xl font-bold mb-4">Important Note</h2>
+        <ul className="list-disc pl-6 space-y-3">
+          <li className="font-medium">
+            {" "}
+            เวอร์ชั่น Alpha ยังมีบัคอยู่มาก (แจ้งบัคที่ ig: Rujinopy)
+          </li>
+          <li className="font-medium text-red-500">
+            {" "}
+            สำคัญ บางคนพูดแล้วมันไม่ออกเลย
+            ให้ปิดเสียงแอปทุกอย่างที่มีเสียงในเครื่องไปก่อน เช่น youtube spotify
+            (บัคอะ ไม่รู้ทำไม)
+          </li>
+          <li className="font-medium">ควรใช้ไมโครโฟนที่มีคุณภาพปานกลาง-ดี</li>
+          <li className="font-medium">ควรพูดชัดเจนและไม่เร็วเกินไป</li>
+          <li className="font-medium">
+            ควรหลีกเลี่ยงการพูดสองภาษาพร้อมกัน (อาจจะมี่ให้เลือก mode
+            ภาษาแบบเฉพาะเจาะจงทีหลัง)
+          </li>
+          <li className="font-medium">
+            ถึงจะใช้ภาษาไทย แต่ออกเสียงท้ายให้ชัดจะดีกว่า เช่น พลัคขึ (plaque)
+          </li>
+          <li className="font-medium">
+            ขณะนี้ใช้เพื่อการศึกษา ไม่ใช่อุปกรณ์ทางการแพทย์
+            โปรดใช้ด้วยความระมัดระวัง
+          </li>
+        </ul>
       </div>
     </div>
   );
