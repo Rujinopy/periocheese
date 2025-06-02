@@ -17,8 +17,8 @@ import { useDebounce } from '@/hooks/useDebounce';
 const STORAGE_KEY = "periodontal-chart-data";
 
 export default function Page() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [audioURL, setAudioURL] = useState<string | null>(null);
+
+  const [_audioURL, setAudioURL] = useState<string | null>(null);
   const [transcription, setTranscription] = useState("");
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null); // Reference to the form container
