@@ -32,6 +32,17 @@ body {
     -moz-appearance: none;
     /* for Chrome */
     -webkit-appearance: none;
+    /* Reset browser defaults */
+    border: none;
+    background-image: none;
+    box-sizing: border-box;
+    text-align-last: center;
+  }
+  
+  /* Ensure proper vertical alignment */
+  select option {
+    text-align: center;
+    line-height: 16px;
   }
   input[type="number"] {
     -webkit-appearance: textfield;
