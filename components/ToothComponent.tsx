@@ -198,7 +198,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                     <input
                       type="number"
                       {...field}
-                      className={`w-full text-center flex justify-center items-center py-1 ${
+                      className={`w-full text-center flex justify-center items-center leading-none h-[24px] ${
                         isAbsent(toothNumber) ? "bg-white text-white" : ""
                       }`}
                     />
@@ -226,7 +226,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                       <input
                         type="number"
                         {...field}
-                        className={`w-full text-center ${
+                        className={`w-full text-center leading-none h-[24px] ${
                           isAbsent(toothNumber) ? "bg-white text-white" : ""
                         }`}
                       />
