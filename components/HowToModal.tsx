@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { sendGAEvent } from "@next/third-parties/google";
 // import Howto from "./Howto";
 
@@ -15,9 +15,9 @@ export default function HowToModal() {
         </button>
         </a>
       </DialogTrigger>
-      <DialogContent className="max-w-[90vw] w-full max-h-[90vh] overflow-y-auto bg-green-100">
-        {/* <Howto /> */}
-      </DialogContent>
+      {/* <DialogContent className="max-w-[90vw] w-full max-h-[90vh] overflow-y-auto bg-green-100">
+        <Howto />
+      </DialogContent> */}
     </Dialog>
   );
 }
