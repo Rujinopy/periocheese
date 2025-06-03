@@ -75,7 +75,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
         return (
           sections.mobility && (
             <div
-              className="flex items-center justify-center border-black w-[47px] overflow-hidden pb-1.5"
+              className="flex items-center justify-center border-black w-[47px] overflow-hidden pb-[5px]"
               style={{ height: '16px' }}
             >
               <Controller
@@ -85,7 +85,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={`text-center appearance-none border-none outline-none w-[47px] h-[20px] ${
+                    className={`text-center appearance-none border-none outline-none w-[47px] h-[12px] ${
                       isAbsent(toothNumber) ? "bg-white text-white" : ""
                     }`}
                     style={{
@@ -247,7 +247,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
   };
 
   return (
-    <div className="text-xs divide-y-2 divide-black w-[378/8 px] h-[162/8 px]">
+    <div className="text-xs divide-y-2 divide-black w-[378/8 px] h-[162/8 px] bg">
       {quadrant.slice(2) !== "P" &&
         quadrant.slice(2) !== "L" &&
         (toothNumber.startsWith("1") || toothNumber.startsWith("2")) && (
@@ -263,7 +263,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                     field.value === "present" ? "absent" : "present"
                   );
                 }}
-                className="py-1 text-center cursor-pointer"
+                className="text-center cursor-pointer "
               >
                 {toothNumber.slice(0, -1)}
               </h3>
@@ -294,7 +294,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                     field.value === "present" ? "absent" : "present"
                   );
                 }}
-                className="py-1 text-center cursor-pointer"
+                className="text-center cursor-pointer"
               >
                 {toothNumber.slice(0, -1)}
               </h3>
