@@ -86,7 +86,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={`text-center flex justify-center items-center p-0 w-[47px] m-0 ${
+                    className={`text-center flex justify-center items-center p-0 w-[47px] m-0 leading-none h-[16px] ${
                       isAbsent(toothNumber) ? "bg-white text-white" : ""
                     }`}
                   >
