@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { DM_Sans } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google'
+import CookieBanner from "@/components/CookieBanner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -24,6 +26,8 @@ export default function RootLayout({
         className={`${dmSans.className} antialiased text-black`}
       >
         {children}
+        <CookieBanner />
+        <GoogleAnalytics gaId="G-DPK1EWV214" />
       </body>
     </html>
   );

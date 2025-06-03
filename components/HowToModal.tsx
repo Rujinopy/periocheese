@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { sendGAEvent } from "@next/third-parties/google";
 // import Howto from "./Howto";
 
 
@@ -9,7 +10,7 @@ export default function HowToModal() {
     <Dialog>
       <DialogTrigger asChild>
         <a href="/how-to">
-        <button className="p-2 bg-white hover:bg-gray-100 hover:cursor-pointer hover:underline rounded-full text-black">
+        <button onClick={() => sendGAEvent({event:"form_how_to_use_clicked", value: "form_how_to_use_clicked"})} className="p-2 bg-white hover:bg-gray-100 hover:cursor-pointer hover:underline rounded-full text-black">
           how to use
         </button>
         </a>
