@@ -75,8 +75,8 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
         return (
           sections.mobility && (
             <div
-              className="flex items-center justify-center border-black w-[47px] overflow-hidden pb-[5px]"
-              style={{ height: '16px' }}
+              className="flex items-center justify-center border-black w-[47px] overflow-hidden pb-0 border-t"
+              style={{ height: '25px' }}
             >
               <Controller
                 name={`${toothNumber}.mobility.0`}
@@ -85,7 +85,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={`text-center appearance-none border-none outline-none w-[47px] h-[12px] ${
+                    className={`text-center appearance-none border-none outline-none w-[47px] h-[25px] ${
                       isAbsent(toothNumber) ? "bg-white text-white" : ""
                     }`}
                     style={{
