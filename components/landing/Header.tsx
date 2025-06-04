@@ -52,9 +52,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
+            <Link href="/form">
             <button className="bg-[#FFE27A] font-black rounded-md text-black px-6 py-3 border-2 hover:shadow-[2px_2px_0px_0px_#000] hover:-translate-x-1 hover:-translate-y-1 border-black transition-all">
-              <Link href="/form">Try cheese</Link>
+              Try cheese
             </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
