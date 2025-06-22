@@ -134,7 +134,7 @@ export default function RecordingButton({
       <button
         className="px-3 py-2 bg-red-500 hover:bg-red-400 border-2 border-black text-white rounded-3xl my-4 disabled:bg-slate-300 disabled:border-none"
         onClick={() => {
-          sendGAEvent('event', "recording_button_clicked", {value: "recording_button_clicked"});
+          sendGAEvent("event", "recording_button_clicked", {value: "recording_button_clicked"});
           if (recording) {
             stopRecording();
           } else {
@@ -153,7 +153,7 @@ export default function RecordingButton({
       </button>
       <Select onValueChange={(value) => setMode(value)}>
         <SelectTrigger
-          onClick={void sendGAEvent('event',"select_mode_clicked", {value: "select_mode_clicked"})}
+          onClick={() => sendGAEvent("event", "select_mode_clicked", { value: "select_mode_clicked" })}
           className="w-[180px] bg-white border-2 border-black text-black"
         >
           <SelectValue placeholder="Select a mode" />
