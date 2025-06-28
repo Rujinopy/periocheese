@@ -58,6 +58,9 @@ body {
   }
   /* Ensure consistent text rendering */
   input {
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
