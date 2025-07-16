@@ -191,7 +191,7 @@ export default function Page() {
                 {/* Base layers */}
                 <div className="absolute w-full h-full z-20 top-0 left-0">
                   <img
-                    src="/grid/chart-grid-box.svg"
+                    src="/grid/kku-chart-grid-box.png"
                     alt="grid"
                     className="w-full h-full"
                   />
@@ -357,7 +357,8 @@ export default function Page() {
 
                   {/* Teeth Components */}
                   <div className="absolute z-40">
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[312px] ">
+                    {/* <h2 className="absolute left-[260px] top-[470px] text-sm">KG</h2> */}
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[298px] ">
                       {[
                         "18b",
                         "17b",
@@ -372,20 +373,21 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q1B}
-                          sections={{
-                            kg: false, // Hide kg section
-                            mobility: true,
-                            implant: true, // Hide implant section
-                            furcation: true,
-                            bleeding: true,
-                            plaque: true, // Hide plaque section
-                            margin: true,
-                            depth: true,
-                          }}
+                          sectionOrder={[
+                            "mobility",
+                            "implant",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "cal",
+                            "margin",
+                            "depth",
+                            "kg",
+                          ]}
                         />
                       ))}
                     </div>
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[312px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[298px]">
                       {[
                         "21b",
                         "22b",
@@ -400,21 +402,22 @@ export default function Page() {
                           key={tooth}
                           toothNumber={tooth}
                           quadrant={Quadrants.Q2B}
-                          sections={{
-                            kg: false, // Hide kg section
-                            mobility: true,
-                            implant: true, // Hide implant section
-                            furcation: true,
-                            bleeding: true,
-                            plaque: true, // Hide plaque section
-                            margin: true,
-                            depth: true,
-                          }}
+                          sectionOrder={[
+                            "mobility",
+                            "implant",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "cal",
+                            "margin",
+                            "depth",
+                            "kg",
+                          ]}
                         />
                       ))}
                     </div>
 
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[805px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[790px]">
                       {[
                         "18p",
                         "17p",
@@ -434,6 +437,7 @@ export default function Page() {
                             implant: false, // Hide implant section
                             furcation: true,
                             bleeding: true,
+                            cal: true,
                             plaque: true, // Hide plaque section
                             margin: true,
                             depth: true,
@@ -442,6 +446,7 @@ export default function Page() {
                             "furcation",
                             "bleeding",
                             "plaque",
+                            "cal",
                             "depth",
                             "margin",
                           ]}
@@ -449,7 +454,7 @@ export default function Page() {
                       ))}
                     </div>
 
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[805px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[790px]">
                       {[
                         "21p",
                         "22p",
@@ -469,6 +474,7 @@ export default function Page() {
                             implant: false, // Hide implant section
                             furcation: true,
                             bleeding: true,
+                            cal: true,
                             plaque: true, // Hide plaque section
                             margin: true,
                             depth: true,
@@ -477,14 +483,15 @@ export default function Page() {
                             "furcation",
                             "bleeding",
                             "plaque",
+                            "cal",
                             "depth",
                             "margin",
                           ]}
                         />
                       ))}
                     </div>
-
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[1420px]">
+                     {/* <h2 className="absolute left-[260px] top-[1408px] text-sm">KG</h2> */}
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[1400px]">
                       {[
                         "31b",
                         "32b",
@@ -500,11 +507,13 @@ export default function Page() {
                           toothNumber={tooth}
                           quadrant={Quadrants.Q3B}
                           sectionOrder={[
+                            "kg",
                             "mobility",
                             "implant",
                             "furcation",
                             "bleeding",
                             "plaque",
+                            "cal",
                             "depth",
                             "margin",
                           ]}
@@ -512,7 +521,7 @@ export default function Page() {
                       ))}
                     </div>
 
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[987px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[947px]">
                       {[
                         "31l",
                         "32l",
@@ -528,19 +537,30 @@ export default function Page() {
                           toothNumber={tooth}
                           quadrant={Quadrants.Q3L}
                           sections={{
+                            kg: true,
                             mobility: false,
                             implant: false, // Hide implant section
                             furcation: true,
                             bleeding: true,
+                            cal: true,
                             plaque: true, // Hide plaque section
                             margin: true,
                             depth: true,
                           }}
+                          sectionOrder={[
+                            "kg",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "cal",
+                            "margin",
+                             "depth",
+                          ]}
                         />
                       ))}
                     </div>
 
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[1420px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[1400px]">
                       {[
                         "48b",
                         "47b",
@@ -556,19 +576,22 @@ export default function Page() {
                           toothNumber={tooth}
                           quadrant={Quadrants.Q4B}
                           sectionOrder={[
+                            "kg",
                             "mobility",
                             "implant",
                             "furcation",
                             "bleeding",
                             "plaque",
+                            "cal",
                             "depth",
                             "margin",
                           ]}
                         />
                       ))}
                     </div>
-
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[987px]">
+                    
+                    {/* <h2 className="absolute left-[260px] top-[1085px] text-sm">KG</h2> */}
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[947px]">
                       {[
                         "48l",
                         "47l",
@@ -584,14 +607,25 @@ export default function Page() {
                           toothNumber={tooth}
                           quadrant={Quadrants.Q4L}
                           sections={{
+                            kg: true,
                             mobility: false,
                             implant: false, // Hide implant section
                             furcation: true,
+                            cal: true,
                             bleeding: true,
                             plaque: true, // Hide plaque section
                             margin: true,
                             depth: true,
                           }}
+                          sectionOrder={[
+                            "kg",
+                            "furcation",
+                            "bleeding",
+                            "plaque",
+                            "cal",
+                            "margin",
+                             "depth",
+                          ]}
                         />
                       ))}
                     </div>

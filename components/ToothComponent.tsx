@@ -20,6 +20,8 @@ interface ToothComponentProps {
     plaque?: boolean;
     margin?: boolean;
     depth?: boolean;
+    kg?: boolean;
+    cal?: boolean;
   };
   sectionOrder?: (
     | "mobility"
@@ -29,6 +31,8 @@ interface ToothComponentProps {
     | "plaque"
     | "margin"
     | "depth"
+    | "kg"
+    | "cal"
   )[];
 }
 
@@ -43,6 +47,8 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
     plaque: true,
     margin: true,
     depth: true,
+    kg: true,
+    cal: true,
   },
   sectionOrder = [
     "mobility",
@@ -52,6 +58,8 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
     "plaque",
     "margin",
     "depth",
+    "kg",
+    "cal",
   ],
 }) => {
   const { control, setValue, watch } = useFormContext();
@@ -75,8 +83,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
         return (
           sections.mobility && (
             <div
-              className="flex items-center justify-center border-black w-[47px] overflow-hidden pb-0 border-t"
-              style={{ height: '25px' }}
+              className="flex items-center justify-center border-black w-[47px] h-[20px] "
             >
               <Controller
                 name={`${toothNumber}.mobility.0`}
@@ -85,7 +92,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={`text-center appearance-none border-none outline-none w-[47px] h-[25px] ${
+                    className={`text-center appearance-none border-none outline-none w-[47px] ${
                       isAbsent(toothNumber) ? "bg-white text-white" : ""
                     }`}
                     style={{
@@ -202,7 +209,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                     <input
                       type="number"
                       {...field}
-                      className={`w-full text-center flex justify-center items-center leading-none h-[24px] ${
+                      className={`w-full text-center flex justify-center items-center leading-none h-[20px] ${
                         isAbsent(toothNumber) ? "bg-white text-white" : ""
                       }`}
                     />
@@ -230,7 +237,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                       <input
                         type="number"
                         {...field}
-                        className={`w-full text-center leading-none h-[24px] ${
+                        className={`w-full text-center leading-none h-[20px] ${
                           isAbsent(toothNumber) ? "bg-white text-white" : ""
                         }`}
                       />
@@ -238,6 +245,55 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
                   />
                 ))}
               </div>
+            </div>
+          )
+        );
+      case "kg":
+        return (
+          sections.kg && (
+            <div className="flex w-[47px]">
+              <Controller
+                name={`${toothNumber}.kg.0`}
+                control={control}
+                defaultValue={0}
+                render={({ field }) => (
+                  <input
+                    type="number"
+                    {...field}
+                    className={`w-full text-center leading-none h-[16px] ${
+                      isAbsent(toothNumber) ? "bg-white text-white" : ""
+                    }`}
+                  />
+                )}
+              />
+            </div>
+          )
+        );
+      case "cal":
+        return (
+          sections.cal && (
+            <div className="flex w-[47px]">
+              {(["Q1B", "Q1P", "Q4B", "Q4L"].includes(quadrant)
+                ? [0, 1, 2]
+                : [2, 1, 0]
+              ).map((index) => {
+                const depthValue = Number(allTeeth?.[toothNumber]?.depth?.[index] || 0);
+                const marginValue = Number(allTeeth?.[toothNumber]?.margin?.[index] || 0);
+                const calValue = marginValue < 0 
+                  ? depthValue + Math.abs(marginValue)
+                  : depthValue - marginValue;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`w-full bg-white text-center leading-none h-[20px] flex items-center justify-center ${
+                      isAbsent(toothNumber) ? "bg-white text-white" : ""
+                    }`}
+                  >
+                    {calValue}
+                  </div>
+                );
+              })}
             </div>
           )
         );
