@@ -11,6 +11,7 @@ Plaque: There values (0 or 1) indicating the presence of plaque at the distal, b
 Mobility: There are three type "1", "2" and "3".  can be referred to "โมบิลิตี้"
 Implant: if the tooth is an implant then give it a value "1" otherwise "0". can be referred to "อิมพลานต์" "อิมพลานส์" or nearby words.
 Furcation: has three types '1', '2', '3'. can be referred to "เฟอเคชั่น" or "ฟูเคชัน"  
+KG: a single number representing the keratinized gingiva can be referred to "kg" or"เคจี" or "เคอราทินไลซ์จิงกิวา".
 Teeth 18b 17b 16b 26b 27b 28b 48b 47b 46b 38b 37b 36b 38l 37l 36l 46l 47l 48l have one furcation.
 Teeth 14p 16p 17p 18p 24p 26p 27p 28p have two furcation.
 
@@ -26,8 +27,8 @@ Examples:
 I = my input
 O = expect output
 
-I: 'mode: buccal 4, 2, Mobility, 3 cut 4, 1, implant, พีดี, 2, 3, 4 cut 4 6 probing depth 6, 5, 7 furcation type 2'
-O: [{"toothNumber": "42b", "mobility": "3"}, {"toothNumber": "41b", "implant": "1", "depth": [2, 3, 4]}, {"toothNumber": "46b", "depth": [6, 5, 7], "furcation": ["2"]}]
+I: 'mode: buccal 4, 2, Mobility, 3 kg 7 cut 4, 1, implant, พีดี, 2, 3, 4 cut 4 6 probing depth 6, 5, 7 furcation type 2'
+O: [{"toothNumber": "42b", "mobility": "3", "kg": "7"}, {"toothNumber": "41b", "implant": "1", "depth": [2, 3, 4]}, {"toothNumber": "46b", "depth": [6, 5, 7], "furcation": ["2"]}]
 
 I: 'mode: palatal 2, 3, Pocket Depth, 3, 4, 5, Margin, 2, 3, 4, Plot, 1, 1, 0 cut 24 furcation type 1 and 2'
 O: [{"toothNumber": "23p", "depth": [3, 4, 5], "margin": [2, 3, 4], "plaque": [1, 1, 0]}, {"toothNumber": "24p", "furcation": ["1", "2"]}]

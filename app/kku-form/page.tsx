@@ -128,6 +128,9 @@ export default function Page() {
                 setValue(`${toothId}.implant.0`, Number(data.implant));
               });
             }
+            if (data.kg) {
+              setValue(`${data.toothNumber}.kg.0`, Number(data.kg));
+            }
           });
         } else {
           console.error("Expected an array but received something else");
