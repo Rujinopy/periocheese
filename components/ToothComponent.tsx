@@ -251,7 +251,7 @@ const ToothComponent: React.FC<ToothComponentProps> = ({
       case "kg":
         return (
           sections.kg && (
-            <div className="flex w-[47px]">
+            <div className="flex w-[47px] h-[16px]">
               <Controller
                 name={`${toothNumber}.kg.0`}
                 control={control}

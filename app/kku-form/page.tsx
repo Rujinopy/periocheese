@@ -494,7 +494,7 @@ export default function Page() {
                       ))}
                     </div>
                      {/* <h2 className="absolute left-[260px] top-[1408px] text-sm">KG</h2> */}
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[1400px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[685px] top-[1410px]">
                       {[
                         "31b",
                         "32b",
@@ -563,7 +563,7 @@ export default function Page() {
                       ))}
                     </div>
 
-                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[1400px]">
+                    <div className="flex divide-x-2 divide-black border border-black absolute left-[285px] top-[1410px]">
                       {[
                         "48b",
                         "47b",
