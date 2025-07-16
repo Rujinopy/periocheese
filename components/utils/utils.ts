@@ -386,21 +386,24 @@ export const toothData = [
     xCoords: [296, 319, 342],
     xinterCoords: [342, 358],
     absenceLine: { left: 312.15, top: 1092.1 },
-    implantLayout: { left: 287, top: 1073, width: 68, height: 133 }
+    implantLayout: { left: 287, top: 1073, width: 68, height: 133 },
+    furcation: [calculateFurcationPosition(312.5, 1165)]
   },
   {
     toothNumber: "47l",
     xCoords: [358, 382, 406],
     xinterCoords: [406, 422],
     absenceLine: { left: 378.65, top: 1092.1 },
-    implantLayout: { left: 355, top: 1073, width: 63, height: 133 }
+    implantLayout: { left: 355, top: 1073, width: 63, height: 133 },
+    furcation: [calculateFurcationPosition(380.5, 1165)]
   },
   {
     toothNumber: "46l",
     xCoords: [422, 445.5, 469],
     xinterCoords: [469, 492],
     absenceLine: { left: 437.15, top: 1092.1 },
-    implantLayout: { left: 418, top: 1073, width: 62, height: 133 }
+    implantLayout: { left: 418, top: 1073, width: 62, height: 133 },
+    furcation: [calculateFurcationPosition(438.5, 1165)]
   },
   {
     toothNumber: "45l",
@@ -505,21 +508,24 @@ export const toothData = [
     xCoords: [1061, 1038.5, 1016],
     xinterCoords: [1016, 999],
     absenceLine: { left: 1030.6, top: 1092.1 },
-    implantLayout: { left: 1004, top: 1073, width: 84, height: 133 }
+    implantLayout: { left: 1004, top: 1073, width: 84, height: 133 },
+    furcation: [calculateFurcationPosition(1034.5, 1165)]
   },
   {
     toothNumber: "37l",
     xCoords: [999, 975.5, 952],
     xinterCoords: [952, 936],
     absenceLine: { left: 965.1, top: 1092.1 },
-    implantLayout: { left: 941, top: 1073, width: 63, height: 133 }
+    implantLayout: { left: 941, top: 1073, width: 63, height: 133 },
+    furcation: [calculateFurcationPosition(964.5, 1160)]
   },
   {
     toothNumber: "36l",
     xCoords: [936, 911.5, 887],
     xinterCoords: [887, 864],
     absenceLine: { left: 905.65, top: 1092.1 },
-    implantLayout: { left: 880, top: 1073, width: 61, height: 133 }
+    implantLayout: { left: 880, top: 1073, width: 61, height: 133 },
+    furcation: [calculateFurcationPosition(908.5, 1170)]
   },
   {
     toothNumber: "35l",
